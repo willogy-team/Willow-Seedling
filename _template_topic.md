@@ -10,8 +10,8 @@
 # Index
 - [Introduction](#introduction)
 - [Motivation](#motivation)
-- [Introduction / Proposals / Benefits](#introduction-/-proposals-/-benefits)
-- [Code & Documents](#code-&-documents)
+- [Introduction / Proposals / Benefits](#introduction--proposals--benefits)
+- [Code & Documents](#code--documents)
 - [Tutorials & Examples](#tutorials-and-examples)
 - [References](#references)
 - [License](#license)
