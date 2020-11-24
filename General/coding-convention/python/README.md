@@ -1,7 +1,6 @@
-# Coding Convention
+# Coding convention for Python
 
 # Index
-- [Python](python)
 
 # References
 - [ ] Coding convention for Python. [link](https://google.github.io/styleguide/pyguide.html)
