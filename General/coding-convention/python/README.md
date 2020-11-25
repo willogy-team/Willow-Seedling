@@ -750,10 +750,141 @@ Always use a `.py` filename extension. Never use dashes.
 Python filenames must have a `.py` extension and must not contain dashes (`-`). This allows them to be imported and unittested. If you want an executable to be accessible without the extension, use a symbolic link or a simple bash wrapper containing `exec "$0.py" "$@"`.
 
 #### III.16.4 Guidelines derived from Guido’s Recommendations
+|Type| 	Public| 	Internal|
+|--|--|---|
+|Packages |	lower_with_under |	|
+|Modules |	lower_with_under |	_lower_with_under|
+|Classes |	CapWords |	_CapWords|
+|Exceptions |	CapWords 	||
+|Functions |	lower_with_under()| 	_lower_with_under()|
+|Global/Class Constants |	CAPS_WITH_UNDER |	_CAPS_WITH_UNDER|
+|Global/Class Variables |	lower_with_under |	_lower_with_under|
+|Instance Variables| 	lower_with_under |	_lower_with_under (protected)|
+|Method Names |	lower_with_under()| 	_lower_with_under() (protected)|
+|Function/Method Parameters |	lower_with_under 	||
+|Local Variables |	lower_with_under 	||
 
-### III.17 Nam
-### III.18
-### III.19
+### III.17 Main
+In Python, `pydoc` as well as unit tests require modules to be importable. If a file is meant to be used as an executable, its main functionality should be in a `main()` function, and your code should always check `if __name__ == '__main__'` before executing your main program, so that it is not executed when the module is imported.
+
+When using __absl__, use `app.run`:
+```
+from absl import app
+...
+
+def main(argv):
+    # process non-flag arguments
+    ...
+
+if __name__ == '__main__':
+    app.run(main)
+```
+Otherwise, use:
+```
+def main():
+    ...
+
+if __name__ == '__main__':
+    main()
+```
+All code at the top level will be executed when the module is imported. Be careful not to call functions, create objects, or perform other operations that should not be executed when the file is being `pydoced`.
+
+### III.18 Function Length
+Prefer small and focused functions.
+
+We recognize that long functions are sometimes appropriate, so no hard limit is placed on function length. If a function exceeds about 40 lines, think about whether it can be broken up without harming the structure of the program.
+### III.19 Type Annotations
+#### III.19.1 General Rules
+Familiarize yourself with [PEP-484](https://www.python.org/dev/peps/pep-0484/).<br/>
+In methods, only annotate `self`, or `cls` if it is necessary for proper type information. e.g., `@classmethod def create(cls: Type[T]) -> T: return cls()`<br/>
+If any other variable or a returned type should not be expressed, use `Any`.<br/>
+Be not required to annotate all the functions in a module. Unless:
+- At least annotate your public APIs.
+- Use judgment to get to a good balance between safety and clarity on the one hand, and flexibility on the other.
+- Annotate code that is prone to type-related errors (previous bugs or complexity).
+- Annotate code that is hard to understand.
+- Annotate code as it becomes stable from a types perspective. In many cases, you can annotate all the functions in mature code without losing too much flexibility.
+#### III.19.2 Line Breaking
+Try to follow the existing indentation rules.
+
+After annotating, many function signatures will become “one parameter per line”.
+```
+def my_method(self,
+              first_var: int,
+              second_var: Foo,
+              third_var: Optional[Bar]) -> int:
+  ...
+```
+#### III.19.3 Forward Declarations
+If you need to use a class name from the same module that is not yet defined – for example, if you need the class inside the class declaration, or if you use a class that is defined below – use a string for the class name.
+```
+class MyClass:
+
+  def __init__(self,
+               stack: List["MyClass"]) -> None:
+```
+#### III.19.4 Default Values
+Use spaces around the `=` only for arguments that have both a type annotation and a default value.
+```
+Yes:
+def func(a: int = 0) -> int:
+  ...
+```
+```
+No:
+def func(a:int=0) -> int:
+  ...
+```
+#### III.19.5 NoneType
+In the Python type system, `NoneType` is a “first class” type, and for typing purposes, `None` is an alias for `NoneType`. If an argument can be `None`, it has to be declared! You can use `Union`, but if there is only one other type, use `Optional`.
+```
+Yes:
+def func(a: Optional[Text], b: Optional[Text] = None) -> Text:
+  ...
+def multiple_nullable_union(a: Union[None, Text, int]) -> Text
+  ...
+```
+```
+No:
+def nullable_union(a: Union[None, Text]) -> Text:
+  ...
+def implicit_optional(a: Text = None) -> Text:
+  ...
+```
+#### III.19.6 Type Aliases
+You can declare aliases of complex types. The name of an alias should be CapWorded. If the alias is used only in this module, it should be _Private.
+#### III.19.7 Ignoring Types
+You can disable type checking on a line with the special comment `# type: ignore`.
+#### III.19.8 Typing Variables
+If an internal variable has a type that is hard or impossible to infer, you can specify its type in a couple ways.
+
+Type Comments:
+Use a `# type:` comment on the end of the line
+```
+a = SomeUndecoratedFunction()  # type: Foo
+```
+Annotated Assignments
+Use a colon and type between the variable name and value, as with function arguments.
+```
+a: Foo = SomeUndecoratedFunction()
+```
+#### III.19.9 Tuples vs Lists
+Typed lists can only contain objects of a single type. Typed tuples can either have a single repeated type or a set number of elements with different types. The latter is commonly used as the return type from a function.
+```
+a = [1, 2, 3]  # type: List[int]
+b = (1, 2, 3)  # type: Tuple[int, ...]
+c = (1, "2", 3.5)  # type: Tuple[int, Text, float]
+```
+#### III.19.10 TypeVars
+#### III.19.11 String types
+#### III.19.12 Imports For Typing
+For classes from the `typing` module, always import the class itself. You are explicitly allowed to import multiple specific classes on one line from the `typing` module. Ex:
+```
+from typing import Any, Dict, Optional
+```
+## IV. Parting Words
+Conclusionly, these guideline is to have a common vocabulary of coding, which present global style rules. In paticular, we have more rule with style by the team or firm. If code you add to a file looks drastically different from the existing code around it, it throws readers out of their rhythm when they go to read it. Therefore, avoid it.
 
 # References
 - [ ] Coding convention for Python. [link](https://google.github.io/styleguide/pyguide.html)
+- [ ] PEP 8 Style Guide for Python Code. [link](https://www.python.org/dev/peps/pep-0008/#imports)
