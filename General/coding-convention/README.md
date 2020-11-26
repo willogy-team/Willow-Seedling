@@ -24,7 +24,7 @@ Therefore, we almost work together, comply common style rules as unirhythm, go f
 
 ## Python
 
-Go to [Coding Covention Python](python) .
+Go to Coding Covention for [Python](python) .
 
 # References
 - [ ] Coding convention for Python. [link](https://google.github.io/styleguide/pyguide.html)
