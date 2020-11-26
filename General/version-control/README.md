@@ -153,9 +153,19 @@ Remote references are references (pointers) in your remote repositories, includi
 
 ##### Push
 
-##### Fetch
+Want to share a branch with the team, you need to push it up to a remote to which you have write access.
+
+```
+$ git push origin <branch>
+```
 
 ##### Pull
+
+Get a branch from server to your working directory.
+
+```
+$ git pull origin <branch>
+```
 
 ## Git Commit Message
 
