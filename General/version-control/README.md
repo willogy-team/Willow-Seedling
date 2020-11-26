@@ -68,6 +68,17 @@ $ git add README test.rb LICENSE
 $ git commit -m 'Initial commit'
 ```
 
+### Tag
+
+Git has the ability to tag specific points in a repository’s history as being important. Typically, people use this functionality to mark release points (`v1.0`, `v2.0` and so on). In this section, you’ll learn how to list existing tags, how to create and delete tags, and what the different types of tags are.
+
+List tag:
+```
+$ git tag
+v1.0
+v2.0
+```
+
 ## Git Branching
 
 #### What is branch? 
@@ -95,14 +106,58 @@ Shorthand for create a new branch and switch to it at the same time
 $ git checkout -b sub_branch
 Switched to a new branch sub_branch
 ```
+#### Branching
+
+After some commits with two different branch:
+![Branching](/images/basic-branching.png)
 
 #### Merge branches
+
+Have to do is check out the branch you wish to merge into and then run the git merge command:
+
+```
+$ git checkout master
+Switched to branch 'master'
+$ git merge iss53
+Merge made by the 'recursive' strategy.
+index.html |    1 +
+1 file changed, 1 insertion(+)
+```
+![Merge1](/images/basic-merging-1.png)
+
+Instead of just moving the branch pointer forward, Git creates a new snapshot that results from this three-way merge and automatically creates a new commit that points to it. This is referred to as a merge commit, and is special in that it has more than one parent.
+
+![Merge2](/images/basic-merging-2.png)
+
 #### Delete branch
-### 2. Tag
-### 3. Remote
-#### Pull
-#### Fetch
-#### Push
+
+Have no further need for the iss53 branch. You can close the issue in your issue-tracking system, and delete the branch:
+
+```
+$ git branch -d iss53
+```
+#### Rebase
+The second way to integrate changes from one branch into another ( the first way: `merge`). With the `rebase` command, you can take all the changes that were committed on one branch and replay them on a different branch.
+
+```
+$ git checkout experiment
+$ git rebase master
+First, rewinding head to replay your work on top of it...
+Applying: added staged command
+```
+
+![rebase](/images/basic-rebase-3.png)
+
+#### Remote
+
+Remote references are references (pointers) in your remote repositories, including branches, tags, and so on. You can get a full list of remote references explicitly with `git ls-remote <remote>`, or `git remote show <remote>` for remote branches as well as more information. 
+
+##### Push
+
+##### Fetch
+
+##### Pull
+
 # References
 - [ ] Version control: Git Branching. [link](https://learngitbranching.js.org)
 - [ ] Version control: 7 rules of great Git commit message. [link](https://chris.beams.io/posts/git-commit/)
