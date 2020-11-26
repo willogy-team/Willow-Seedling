@@ -39,7 +39,7 @@ Need to collaborate with developers on other systems. To deal with this problem,
 
 If that server goes down for an hour, then during that hour nobody can collaborate at all or save versioned changes to anything they’re working on. If the hard disk the central database is on becomes corrupted, and proper backups haven’t been kept, you lose absolutely everything — the entire history of the project except whatever single snapshots people happen to have on their local machines. Local VCS systems suffer from this same problem — whenever you have the entire history of the project in a single place, you risk losing everything.
 
-### Distributed Version Control Systems
+### Distributed Version Control Systems (DVCSs)
 
 In a DVCS (such as Git, Mercurial, Bazaar or Darcs), clients don’t just check out the latest snapshot of the files; rather, they fully mirror the repository, including its full history. Thus, if any server dies, and these systems were collaborating via that server, any of the client repositories can be copied back up to the server to restore it. Every clone is really a full backup of all the data.
 
@@ -47,14 +47,55 @@ In a DVCS (such as Git, Mercurial, Bazaar or Darcs), clients don’t just check 
 
 Furthermore, many of these systems deal pretty well with having several remote repositories they can work with, so you can collaborate with different groups of people in different ways simultaneously within the same project. This allows you to set up several types of workflows that aren’t possible in centralized systems, such as hierarchical models.
 
+## Git Basics
+
+### What is Git?
+
+Git is a distributed version-control system for tracking changes in any set of files, originally designed for coordinating work among programmers cooperating on source code during software development. It goals include speed, data integrity, and support for distributed, non-linear workflows.
+
+### Snapshots
+
+Every time you commit, or save the state of your project, Git basically takes a picture of what all your files look like at that moment and stores a reference to that snapshot. To be efficient, if files have not changed, Git doesn’t store the file again, just a link to the previous identical file it has already stored. Git thinks about its data more like a stream of snapshots.
+
+![Snapshots](/images/snapshots.png)
+
+### Commit
+
+When you make a commit, Git stores a commit object that contains a pointer to the snapshot of the content you staged. This object also contains the author’s name and email address, the message that you typed, and pointers to the commit or commits that directly came before this commit (its parent or parents): zero parents for the initial commit, one parent for a normal commit, and multiple parents for a commit that results from a merge of two or more branches.
+
+```
+$ git add README test.rb LICENSE
+$ git commit -m 'Initial commit'
+```
+
 ## Git Branching
 
-### 1. Commit, Branch
-#### What is branch?
-#### Types
-#### Usage 
+#### What is branch? 
+
+A branch in Git is simply a lightweight movable pointer to one of these commits. The default branch name in Git is `master`. As you start making commits, you’re given a `master` branch that points to the last commit you made. Every time you commit, the `master` branch pointer moves forward automatically.
+
 #### Create new branch
+
+Create a new pointer for you to move around. Do this with the `git branch` command:
+```
+$ git branch testing
+```
+#### HEAD
+
+The branch you are currently on, which is kept by a special pointer called `HEAD`.
+
 #### Switch another branch
+
+To switch to an existing branch.
+```
+$ git checkout testing
+```
+Shorthand for create a new branch and switch to it at the same time
+```
+$ git checkout -b sub_branch
+Switched to a new branch sub_branch
+```
+
 #### Merge branches
 #### Delete branch
 ### 2. Tag
