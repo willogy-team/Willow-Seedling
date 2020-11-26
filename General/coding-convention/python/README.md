@@ -15,7 +15,8 @@ Python is the main dynamic language used at Google. This is a list of __dos__ an
 
 ## II. Python Language Rules
 ### II.1. Lint
-`updating`
+Run `pylint` over your code using this [pylintrc](https://google.github.io/styleguide/pylintrc)
+It is a tool for finding bugs and style problems in Python source code. Because of the dynamic nature of Python, some warnings may be incorrect; however, spurious warnings should be fairly infrequent.
 
 ### II.2. Imports
 Use ```import``` statements for packages and modules only, not for individual classes or functions.
