@@ -1,5 +1,12 @@
 # Coding Convention
 
+| **Author(s)** | Vi Pham|
+| :------------ | :-------------------------------------------------------------------------------------------- |
+| **Reviewer(s)** | Quang Tran |
+| **Start Date** | Nov 24th, 2020 |
+| **Topic(s)** | General Techniques |
+| **Status**       | In Progress |
+
 # Index
 - [Abstract](abstract)
 - [Motivation](motivation)
@@ -17,7 +24,7 @@ Therefore, we almost work together, comply common style rules as unirhythm, go f
 
 ## Python
 
-Go to Python Coding Covention.
+Go to [Coding Covention Python](python) .
 
 # References
 - [ ] Coding convention for Python. [link](https://google.github.io/styleguide/pyguide.html)
