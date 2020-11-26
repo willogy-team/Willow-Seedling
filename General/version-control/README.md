@@ -9,17 +9,16 @@
 
 # Index
 - [Abstract](abstract)
-- [Motivation](motivation)
-- [Version Control Systems](version-control-sys)
+- [Motivation / Version Control Systems](motivation-vc-system)
 - [Git Basics](git-basics)
 - [Git Branching](git_branching)
-- [7 Rules Of Great Git Commit Message](rules_git_commit_message)
+- [Git Commit Message](git_commit_message)
 
 ## Abstract
 
-## Motivation
+Version Control is a class of systems responsible for managing changes to computer programs, documents, large web sites, or other collections of information. Git is a special system to speed, data integrity, and support for distributed, non-linear workflows.
 
-## Version Control Systems (VCSs)
+## Motivation / Version Control Systems (VCSs)
 
 ### Local Version Control Systems
 
@@ -158,7 +157,73 @@ Remote references are references (pointers) in your remote repositories, includi
 
 ##### Pull
 
+## Git Commit Message
+
+### Why is good commit messages
+
+How to you find one commit with messages too few informations. 
+Smoothly, all team member can communicate context about changes
+
+### Rules
+
+- Separate subject from body with a blank line
+
+```
+Summarize changes in around 50 characters or less
+
+More detailed explanatory text, if necessary. Wrap it to about 72
+characters or so. In some contexts, the first line is treated as the
+subject of the commit and the rest of the text as the body. The
+blank line separating the summary from the body is critical (unless
+you omit the body entirely); various tools like `log`, `shortlog`
+and `rebase` can get confused if you run the two together.
+
+Explain the problem that this commit is solving. Focus on why you
+are making this change as opposed to how (the code explains that).
+Are there side effects or other unintuitive consequences of this
+change? Here's the place to explain them.
+
+Further paragraphs come after blank lines.
+
+ - Bullet points are okay, too
+
+ - Typically a hyphen or asterisk is used for the bullet, preceded
+   by a single space, with blank lines in between, but conventions
+   vary here
+
+If you use an issue tracker, put references to them at the bottom,
+like this:
+
+Resolves: #123
+See also: #456, #789
+```
+
+- Limit the subject line to 50 characters
+
+> So shoot for 50 characters, but consider 72 the hard limit.
+
+- Capitalize the subject line
+
+> For example:<br/>
+> - Accelerate to 88 miles per hour<br/>
+> Instead of:<br/>
+> - accelerate to 88 miles per hour
+
+- Do not end the subject line with a period
+
+> For example:<br/>
+> - Open the pod bay doors<br/>
+> Instead of:<br/>
+> - Open the pod bay doors.
+
+- Use the imperative mood in the subject line
+
+- Wrap the body at 72 characters
+
+- Use the body to explain what and why vs. how
+
 # References
 - [ ] Version control: Git Branching. [link](https://learngitbranching.js.org)
 - [ ] Version control: 7 rules of great Git commit message. [link](https://chris.beams.io/posts/git-commit/)
 - [ ] Trunk based development - a source-control branching model. [link](https://trunkbaseddevelopment.com)
+- [ ] Git Documentation. [link](https://git-scm.com/doc)
