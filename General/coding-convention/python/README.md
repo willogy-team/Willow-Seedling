@@ -877,7 +877,18 @@ b = (1, 2, 3)  # type: Tuple[int, ...]
 c = (1, "2", 3.5)  # type: Tuple[int, Text, float]
 ```
 #### III.19.10 TypeVars
+The Python type system has generics. The factory function TypeVar is a common way to use them.
+```
+from typing import List, TypeVar
+T = TypeVar("T")
+...
+def next(l: List[T]) -> T:
+  return l.pop()
+```
 #### III.19.11 String types
+The proper type for annotating strings depends on what versions of Python the code is intended for.
+
+For Python 3 only code, prefer to use `str`. `Text` is also acceptable. Be consistent in using one or the other.
 #### III.19.12 Imports For Typing
 For classes from the `typing` module, always import the class itself. You are explicitly allowed to import multiple specific classes on one line from the `typing` module. Ex:
 ```
