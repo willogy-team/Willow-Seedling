@@ -1,5 +1,5 @@
 # Python Programming
 
 ## Index
-- [Virtual Environment](venv)
+- [Virtual Environment](virtualenv)
 - [Data Manipulation and visualization](numpy-pandas)
