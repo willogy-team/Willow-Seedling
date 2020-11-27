@@ -91,7 +91,7 @@ np.__version__
 
 If you do not install `numpy`, or set up virtual enviroment, please read [link](/General/programming/python/virtualenv)
 
-### Creating arrays
+### Array Creating
 
 - Create zeros array
 
@@ -143,10 +143,124 @@ array([[ 1.,  0.,  0.],
       [ 0.,  0.,  1.]])
 ```
 
+### Array Indexing
+
+- In a one-dimensional array, can access value from index as `list`:
+
+```
+>>> x1 = np.array([4, 3, 4, 4, 8, 4])
+>>> x1
+array([4, 3, 4, 4, 8, 4])
+
+#assess value from index zero
+>>> x1[0]
+4
+
+#assess fifth value
+>>> x1[4]
+8
+
+#get the last value
+>>> x1[-1]
+4
+
+#get the second last value
+>>> x1[-2]
+8
+```
+
+- In a multidimensional array, we need to specify row and column index:
+
+```
+>>> x2
+array([[3, 7, 5, 5],
+      [0, 1, 5, 9],
+      [3, 0, 5, 0]])
+
+
+#1st row and 2nd column value
+>>> x2[2,3]
+0
+
+#3rd row and last value from the 3rd column
+>>> x2[2,-1]
+0
+
+
+#replace value at 0,0 index
+>>> x2[0,0] = 12
+>>> x2
+array([[12,  7,  5,  5],
+      [ 0,  1,  5,  9],
+      [ 3,  0,  5,  0]])
+```
+
+### Array Slicing
+You base array indexing with `list` slicing behaviors can do.
+
+```
+>>> x=np.arange(15).reshape((3,5))
+>>> x
+array([[ 0,  1,  2,  3,  4],
+       [ 5,  6,  7,  8,  9],
+       [10, 11, 12, 13, 14]])
+
+#from start to 1th position rows
+>>> x[:2,]
+array([[0, 1, 2, 3, 4],
+       [5, 6, 7, 8, 9]])
+
+#from 2th to 3th position collumns
+>>> x[:,2:4] 
+array([[ 2,  3],
+       [ 7,  8],
+       [12, 13]])
+```
+
+### Array Concatenation
+
+```
+#You can concatenate two or more arrays at once.
+>>> x = np.array([1, 2, 3])
+>>> y = np.array([3, 2, 1])
+>>> z = [21,21,21]
+>>> np.concatenate([x, y,z])
+array([ 1,  2,  3,  3,  2,  1, 21, 21, 21])
+
+
+#You can also use this function to create 2-dimensional arrays.
+>>> grid = np.array([[1,2,3],[4,5,6]])
+>>> np.concatenate([grid,grid])
+array([[1, 2, 3],
+      [4, 5, 6],
+      [1, 2, 3],
+      [4, 5, 6]])
+
+
+#Using its axis parameter, you can define row-wise or column-wise matrix
+>>> np.concatenate([grid,grid],axis=1)
+array([[1, 2, 3, 1, 2, 3],
+      [4, 5, 6, 4, 5, 6]])
+```
+```
+>>> x = np.array([3,4,5])
+>>> grid = np.array([[1,2,3],[17,18,19]])
+>>> np.vstack([x,grid])
+array([[ 3,  4,  5],
+      [ 1,  2,  3],
+      [17, 18, 19]])
+
+
+#Similarly, you can add an array using np.hstack
+>>> z = np.array([[9],[9]])
+>>> np.hstack([grid,z])
+array([[ 1,  2,  3,  9],
+      [17, 18, 19,  9]])
+```
+
+### Numpy Matrix Calculating
 
 ## Pandas Library
-
-## Matplotlib
 
 # References
 - [Practical Tutorial on Data Manipulation with Numpy and Pandas in Python](https://www.hackerearth.com/practice/machine-learning/data-manipulation-visualisation-r-python/tutorial-data-manipulation-numpy-pandas-python/tutorial/)
