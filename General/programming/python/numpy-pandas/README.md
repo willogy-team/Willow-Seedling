@@ -262,6 +262,54 @@ array([[ 1,  2,  3,  9],
 
 ## Pandas Library
 
+`pandas` is well suited for many different kinds of data:
+
+- Tabular data with heterogeneously-typed columns, as in an SQL table or Excel spreadsheet.
+- Ordered and unordered (not necessarily fixed-frequency) time series data.
+- Arbitrary matrix data (homogeneously typed or heterogeneous) with row and column labels.
+- Any other form of observational / statistical data sets. The data actually need not be labeled at all to be placed into a pandas data structure.
+
+### Data structures
+| Dimensions | Name | Description |
+| --|---|----------------|
+|1|Series| 1D labeled homogeneously-typed array|
+|2|DataFrame|General 2D labeled, size-mutable tabular structure with potentially heterogeneously-typed |
+
+### Pandas capabilities:
+
+- Easy handling of missing data (represented as NaN) in floating point as well as non-floating point data
+- Size mutability: columns can be inserted and deleted from DataFrame and higher dimensional objects
+- Automatic and explicit data alignment: objects can be explicitly aligned to a set of labels, or the user can simply ignore the labels and let Series, DataFrame, etc. automatically align the data for you in computations
+- Powerful, flexible group by functionality to perform split-apply-combine operations on data sets, for both aggregating and transforming data
+- Make it easy to convert ragged, differently-indexed data in other Python and NumPy data structures into DataFrame objects
+- Intelligent label-based slicing, fancy indexing, and subsetting of large data sets
+- Intuitive merging and joining data sets
+- Flexible reshaping and pivoting of data sets
+- Hierarchical labeling of axes (possible to have multiple labels per tick)
+- Robust IO tools for loading data from flat files (CSV and delimited), Excel files, databases, and saving / loading data from the ultrafast HDF5 format
+- Time series-specific functionality: date range generation and frequency conversion, moving window statistics, date shifting and lagging.
+
+#### What kind of data does pandas handle?
+
+#### How do I read and write tabular data?
+
+#### How do I select a subset of a DataFrame?
+
+#### How to create plots in pandas?
+
+#### How to create new columns derived from existing columns?
+
+#### How to calculate summary statistics?
+
+#### How to reshape the layout of tables?
+
+#### How to combine data from multiple tables?
+
+### How to handle time series data with ease?
+
+### How to manipulate textual data?
+
 # References
 - [Practical Tutorial on Data Manipulation with Numpy and Pandas in Python](https://www.hackerearth.com/practice/machine-learning/data-manipulation-visualisation-r-python/tutorial-data-manipulation-numpy-pandas-python/tutorial/)
-- [Essential tutorial-type notebooks on Pandas and Numpy](https://github.com/tirthajyoti/Machine-Learning-with-Python/tree/master/Pandas%20and%20Numpy)
+- [Essential Tutorial-type Notebooks on Pandas and Numpy](https://github.com/tirthajyoti/Machine-Learning-with-Python/tree/master/Pandas%20and%20Numpy)
+- [Pandas Documentation](https://pandas.pydata.org/docs/getting_started/intro_tutorials/01_table_oriented.html)
