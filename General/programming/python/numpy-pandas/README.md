@@ -305,9 +305,9 @@ array([[ 1,  2,  3,  9],
 
 #### How to combine data from multiple tables?
 
-### How to handle time series data with ease?
+#### How to handle time series data with ease?
 
-### How to manipulate textual data?
+#### How to manipulate textual data?
 
 # References
 - [Practical Tutorial on Data Manipulation with Numpy and Pandas in Python](https://www.hackerearth.com/practice/machine-learning/data-manipulation-visualisation-r-python/tutorial-data-manipulation-numpy-pandas-python/tutorial/)
