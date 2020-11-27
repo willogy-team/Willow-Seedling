@@ -65,7 +65,7 @@ $ source <virtual_environment_name>/bin/activate
 If you want to switch projects or otherwise leave your virtual environment, simply run:
 
 ```
-$ deactivate
+(env) $ deactivate
 ```
 
 ## Managing Packages with pip
