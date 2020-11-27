@@ -27,12 +27,123 @@ The entire process of manipulating data will be easier if use `pandas`. It suppo
 
 ## Numpy Library
 
-### Load the library and check its version
+NumPy’s main object is the homogeneous multidimensional array. It is a table of elements (usually numbers), all of the same type, indexed by a tuple of non-negative integers. In NumPy dimensions are called **axes**.
+
+### Numpy's array class
+
+It is called `ndarray` with alias `array`. The more important attributes of an `ndarray` object are:
+
+- **ndarray.ndim**: the number of axes (dimensions) of the array.
+    
+- **ndarray.shape**: the dimensions of the array. This is a tuple of integers indicating the size of the array in each dimension. For a matrix with n rows and m columns, `shape` will be `(n,m)`. The length of the `shape` tuple is therefore the number of axes, `ndim`.
+    
+- **ndarray.size**: the total number of elements of the array. This is equal to the product of the elements of `shape`.
+    
+- **ndarray.dtype**: an object describing the type of the elements in the array. One can create or specify dtype’s using standard Python types. Additionally NumPy provides types of its own. numpy.int32, numpy.int16, and numpy.float64 are some examples.
+    
+- **ndarray.itemsize**: the size in bytes of each element of the array. For example, an array of elements of type `float64` has `itemsize` 8 (=64/8), while one of type `complex32` has `itemsize` 4 (=32/8). It is equivalent to `ndarray.dtype.itemsize`.
+    
+- **ndarray.data**: the buffer containing the actual elements of the array. Normally, we won’t need to use this attribute because we will access the elements in an array using indexing facilities.
+
+(E.g.)
+```
+>>> import numpy as np
+
+>>> a = np.arange(15).reshape(3, 5)
+
+>>> a
+array([[ 0,  1,  2,  3,  4],
+       [ 5,  6,  7,  8,  9],
+       [10, 11, 12, 13, 14]])
+
+>>> a.shape
+(3, 5)
+
+>>> a.ndim
+2
+
+>>> a.dtype.name
+'int64'
+
+>>> a.itemsize
+8
+
+>>> a.size
+15
+
+>>> type(a)
+<class 'numpy.ndarray'>
+
+>>> b = np.array([6, 7, 8])
+
+>>> b
+array([6, 7, 8])
+
+>>> type(b)
+<class 'numpy.ndarray'>
+```
+### Loading the library and check its version
+
 ```
 import numpy as np
 np.__version__
 ````
-If you do not install `numpy`, or set up virtual enviroment, please read [link](~/python/virtualenv) 
+
+If you do not install `numpy`, or set up virtual enviroment, please read [link](/General/programming/python/virtualenv)
+
+### Creating arrays
+
+- Create zeros array
+
+```
+>>> np.zeros(10, dtype='int')
+array([0, 0, 0, 0, 0, 0, 0, 0, 0, 0])
+```
+
+- Create a n rows by m columns matrix:
+
+```
+>>> n, m = 3,5
+>>> np.ones((3,5), dtype=float)
+array([[ 1.,  1.,  1.,  1.,  1.],
+      [ 1.,  1.,  1.,  1.,  1.],
+      [ 1.,  1.,  1.,  1.,  1.]])
+```
+
+- Create a matrix with a predefined value
+
+```
+>>> predefined_value = 1.23
+>>> np.full((3,5), predefined_value)
+array([[ 1.23,  1.23,  1.23,  1.23,  1.23],
+      [ 1.23,  1.23,  1.23,  1.23,  1.23],
+      [ 1.23,  1.23,  1.23,  1.23,  1.23]])
+```
+
+- Create an array with a set sequence
+
+```
+>>> np.arange(0, 20, 2)
+array([0, 2, 4, 6, 8,10,12,14,16,18])
+```
+
+- Create an array of even space between the given range of values
+
+```
+>>> np.linspace(0, 1, 5)
+array([ 0., 0.25, 0.5 , 0.75, 1.])
+```
+
+- Create an identity matrix
+
+```
+>>> np.eye(3)
+array([[ 1.,  0.,  0.],
+      [ 0.,  1.,  0.],
+      [ 0.,  0.,  1.]])
+```
+
+
 ## Pandas Library
 
 ## Matplotlib
