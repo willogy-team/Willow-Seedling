@@ -559,6 +559,97 @@ Reindexing allows you to change/add/delete the index on a specified axis. This r
 2013-01-03  False  False  False  False   True
 2013-01-04  False  False  False  False   True
 ```
+### Operations
+```
+>>> dates
+DatetimeIndex(['2020-11-30', '2020-12-01', '2020-12-02', '2020-12-03',
+               '2020-12-04', '2020-12-05'],
+              dtype='datetime64[ns]', freq='D')
+>>> df = pd.DataFrame(np.random.randn(6, 4), index=dates, columns=list('ABCD'))
+>>> df
+                   A         B         C         D
+2020-11-30 -0.764258  0.528668  0.464305 -1.301039
+2020-12-01  1.709785 -0.885253 -1.052469 -0.972059
+2020-12-02  1.811653 -0.532710 -1.822339 -0.357420
+2020-12-03 -1.711485  1.930263 -0.728422  1.263277
+2020-12-04  1.846985  1.206684 -0.158186 -2.494884
+2020-12-05 -0.411265 -0.134210 -0.628918 -0.599898
+```
+#### Stats
+Performing a descriptive statistic:
+```
+>>> df.mean()
+A    0.413569
+B    0.352240
+C   -0.654338
+D   -0.743670
+dtype: float64
+```
+Same operation on the other axis:
+```
+>>> df.mean(1)
+0    0.737648
+1    0.875236
+2    0.354031
+3   -0.084361
+4    0.964632
+5    1.185682
+dtype: float64
+```
+#### Apply
+Applying functions to the data:
+```
+>>> df.mean(1)
+2020-11-30   -0.268081
+2020-12-01   -0.299999
+2020-12-02   -0.225204
+2020-12-03    0.188408
+2020-12-04    0.100150
+2020-12-05   -0.443573
+Freq: D, dtype: float64
+```
+#### Histogramming
+```
+>>> s = pd.Series(np.random.randint(0, 7, size=10))
+>>> s
+0    5
+1    6
+2    1
+3    2
+4    0
+5    5
+6    2
+7    2
+8    4
+9    3
+dtype: int64
+>>> s.value_counts()
+2    3
+5    2
+6    1
+4    1
+3    1
+1    1
+0    1
+dtype: int64
+```
+
+#### String Methods
+Series is equipped with a set of string processing methods in the str attribute that make it easy to operate on each element of the array, as in the code snippet below.
+```
+>>> s = pd.Series(['A', 'B', 'C', 'Aaba', 'Baca', np.nan, 'CABA', 'dog', 'cat'])
+>>> s.str.lower()
+0       a
+1       b
+2       c
+3    aaba
+4    baca
+5     NaN
+6    caba
+7     dog
+8     cat
+dtype: object
+```
 ### Merge
 
 #### Concat
@@ -615,7 +706,51 @@ SQL style merges.
 2  foo     2     4
 3  foo     2     5
 ```
+### Grouping
+By “group by” we are referring to a process involving one or more of the following steps:
 
+- **Splitting** the data into groups based on some criteria
+- **Applying** a function to each group independently
+- **Combining** the results into a data structure
+```
+# E.g.
+>>> df = pd.DataFrame({'A': ['foo', 'bar', 'foo', 'bar',
+...                          'foo', 'bar', 'foo', 'foo'],
+...                    'B': ['one', 'one', 'two', 'three',
+...                          'two', 'two', 'one', 'three'],
+...                    'C': np.random.randn(8),
+...                    'D': np.random.randn(8)})
+>>> df
+     A      B         C         D
+0  foo    one -1.193557  0.564701
+1  bar    one  1.049703 -0.461266
+2  foo    two  1.156141  0.426092
+3  bar  three -0.021465 -0.067502
+4  foo    two -0.120250  0.053232
+5  bar    two  0.808355  0.734226
+6  foo    one -1.150090  1.096226
+7  foo  three -1.434000 -0.323896
+```
+Grouping and then applying the `sum()` function to the resulting groups.
+```
+>>> df.groupby('A').sum()
+            C         D
+A                      
+bar  1.836593  0.205457
+foo -2.741757  1.816356
+```
+Grouping by multiple columns forms a hierarchical index, and again we can apply the `sum()` function.
+```
+>>> df.groupby(['A', 'B']).sum()
+                  C         D
+A   B                        
+bar one    1.049703 -0.461266
+    three -0.021465 -0.067502
+    two    0.808355  0.734226
+foo one   -2.343647  1.660927
+    three -1.434000 -0.323896
+    two    1.035890  0.479325
+```
 ### Getiting data in/out
 
 #### CSV
