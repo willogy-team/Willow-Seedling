@@ -411,6 +411,154 @@ D   -0.304104   -0.522257   -0.959284    0.342304    1.335983   -2.222078
 2013-01-05 -0.874978  1.401606  0.331900  1.335983
 2013-01-06  1.552202 -0.319846  0.510372 -2.222078
 ```
+### Selection
+
+#### Getting
+
+- Selecting a single column, which yields a `Series`, equivalent to df.A:
+```
+>>> df['A']
+2013-01-01    0.620219
+2013-01-02    0.106144
+2013-01-03    0.362659
+2013-01-04   -1.954926
+2013-01-05   -0.874978
+2013-01-06    1.552202
+Freq: D, Name: A, dtype: float64
+```
+
+- Selecting via `[]`, which slices the rows.
+```
+>>> df[0:2]
+                   A         B         C         D
+2013-01-01  0.620219 -0.183901 -0.485727 -0.304104
+2013-01-02  0.106144  0.911428 -0.516627 -0.522257
+>>> df['20130103':'20130105']
+                   A         B         C         D
+2013-01-03  0.362659 -0.062068 -1.884467 -0.959284
+2013-01-04 -1.954926  1.424344 -1.382519  0.342304
+2013-01-05 -0.874978  1.401606  0.331900  1.335983
+```
+#### Selection by label
+
+- For getting a cross section using a label:
+```
+>>> df.loc['20130102']
+A    0.106144
+B    0.911428
+C   -0.516627
+D   -0.522257
+Name: 2013-01-02 00:00:00, dtype: float64
+```
+
+- Selecting on a multi-axis by label:
+```
+>>> df.loc[:, ['A', 'C']]
+                   A         C
+2013-01-01  0.620219 -0.485727
+2013-01-02  0.106144 -0.516627
+2013-01-03  0.362659 -1.884467
+2013-01-04 -1.954926 -1.382519
+2013-01-05 -0.874978  0.331900
+2013-01-06  1.552202  0.510372
+```
+#### Selection by position
+
+- Select via the position of the passed integers:
+```
+>>> df.iloc[3]
+A   -1.954926
+B    1.424344
+C   -1.382519
+D    0.342304
+Name: 2013-01-04 00:00:00, dtype: float64
+```
+- By integer slices, acting similar to numpy/python:
+```
+>>> df.iloc[3:5, 0:2]
+                   A         B
+2013-01-04 -1.954926  1.424344
+2013-01-05 -0.874978  1.401606
+```
+
+#### Boolean indexing
+- Using a single column’s values to select data.
+```
+>>> df[df['A'] > 0]
+                   A         B         C         D
+2013-01-01  0.620219 -0.183901 -0.485727 -0.304104
+2013-01-02  0.106144  0.911428 -0.516627 -0.522257
+2013-01-03  0.362659 -0.062068 -1.884467 -0.959284
+2013-01-06  1.552202 -0.319846  0.510372 -2.222078
+```
+- Selecting values from a DataFrame where a boolean condition is met.
+```
+>>> df[df > 0]
+                   A         B         C         D
+2013-01-01  0.620219       NaN       NaN       NaN
+2013-01-02  0.106144  0.911428       NaN       NaN
+2013-01-03  0.362659       NaN       NaN       NaN
+2013-01-04       NaN  1.424344       NaN  0.342304
+2013-01-05       NaN  1.401606  0.331900  1.335983
+2013-01-06  1.552202       NaN  0.510372       NaN
+```
+
+#### Setting 
+Setting values by selecting method
+```
+>>> df.at['20130104','B']=0  # by value
+>>> df.iat[0,3]=0  # by position
+>>> df.loc[:,'D']=np.array([3]*len(df))  # by assigning with a NumPy array:
+>>> df
+                   A         B         C  D
+2013-01-01  0.620219 -0.183901 -0.485727  3
+2013-01-02  0.106144  0.911428 -0.516627  3
+2013-01-03  0.362659 -0.062068 -1.884467  3
+2013-01-04 -1.954926  0.000000 -1.382519  3
+2013-01-05 -0.874978  1.401606  0.331900  3
+2013-01-06  1.552202 -0.319846  0.510372  3
+```
+
+### Missing data
+
+`pandas` primarily uses the value `np.nan` to represent missing data. It is by default not included in computations. 
+
+Reindexing allows you to change/add/delete the index on a specified axis. This returns a copy of the data.
+```
+>>> df1 = df.reindex(index=dates[0:4], columns=list(df.columns) + ['E'])
+>>> df1.loc[dates[0]:dates[1], 'E'] = 1
+>>> df1
+                   A         B         C  D    E
+2013-01-01  0.620219 -0.183901 -0.485727  3  1.0
+2013-01-02  0.106144  0.911428 -0.516627  3  1.0
+2013-01-03  0.362659 -0.062068 -1.884467  3  NaN
+2013-01-04 -1.954926  0.000000 -1.382519  3  NaN
+```
+- To drop any rows that have missing data.
+```
+>>> df1.dropna(how='any')
+                   A         B         C  D    E
+2013-01-01  0.620219 -0.183901 -0.485727  3  1.0
+2013-01-02  0.106144  0.911428 -0.516627  3  1.0
+```
+- Filling missing data.
+```
+>>> df1.fillna(value=3.14)
+                   A         B         C  D     E
+2013-01-01  0.620219 -0.183901 -0.485727  3  1.00
+2013-01-02  0.106144  0.911428 -0.516627  3  1.00
+2013-01-03  0.362659 -0.062068 -1.884467  3  3.14
+2013-01-04 -1.954926  0.000000 -1.382519  3  3.14
+```
+- To get the boolean mask where values are nan.
+```
+>>> pd.isna(df1)
+                A      B      C      D      E
+2013-01-01  False  False  False  False  False
+2013-01-02  False  False  False  False  False
+2013-01-03  False  False  False  False   True
+2013-01-04  False  False  False  False   True
+```
 
 ### Pandas capabilities:
 
