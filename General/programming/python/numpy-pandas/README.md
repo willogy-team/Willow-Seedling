@@ -550,7 +550,7 @@ Reindexing allows you to change/add/delete the index on a specified axis. This r
 2013-01-03  0.362659 -0.062068 -1.884467  3  3.14
 2013-01-04 -1.954926  0.000000 -1.382519  3  3.14
 ```
-- To get the boolean mask where values are nan.
+- To get the boolean mask where values are `NaN`.
 ```
 >>> pd.isna(df1)
                 A      B      C      D      E
@@ -558,6 +558,106 @@ Reindexing allows you to change/add/delete the index on a specified axis. This r
 2013-01-02  False  False  False  False  False
 2013-01-03  False  False  False  False   True
 2013-01-04  False  False  False  False   True
+```
+### Merge
+
+#### Concat
+`pandas` provides various facilities for easily combining together Series and DataFrame objects with various kinds of set logic for the indexes and relational algebra functionality in the case of join / merge-type operations.
+
+```
+>>> df = pd.DataFrame(np.random.randn(10, 4))
+>>> df
+          0         1         2         3
+0  0.183892  0.002187  0.765349  0.335530
+1 -0.884778 -0.554419  1.012688 -0.578964
+2  0.279461 -0.852347  0.385302 -0.575762
+3 -0.632648 -0.108102 -1.484407  0.368410
+4 -0.532260 -0.844347  1.830936  0.760983
+5  0.942440 -0.789946 -1.312493 -0.276988
+6 -1.291169  0.681183 -0.486225  0.040210
+7 -0.554226  1.472404 -0.454190  2.359937
+8  0.023361 -0.941828  0.374026  1.137654
+9  1.192560  0.170873  0.448874  1.741821
+>>> pieces = [df[:3], df[3:7], df[7:]]  # break it into pieces
+>>> pd.concat(pieces)
+          0         1         2         3
+0  0.183892  0.002187  0.765349  0.335530
+1 -0.884778 -0.554419  1.012688 -0.578964
+2  0.279461 -0.852347  0.385302 -0.575762
+3 -0.632648 -0.108102 -1.484407  0.368410
+4 -0.532260 -0.844347  1.830936  0.760983
+5  0.942440 -0.789946 -1.312493 -0.276988
+6 -1.291169  0.681183 -0.486225  0.040210
+7 -0.554226  1.472404 -0.454190  2.359937
+8  0.023361 -0.941828  0.374026  1.137654
+9  1.192560  0.170873  0.448874  1.741821
+```
+
+#### Join
+
+SQL style merges.
+
+```
+>>> left = pd.DataFrame({'key': ['foo', 'foo'], 'lval': [1, 2]})
+>>> right = pd.DataFrame({'key': ['foo', 'foo'], 'rval': [4, 5]})
+>>> left
+   key  lval
+0  foo     1
+1  foo     2
+>>> right
+   key  rval
+0  foo     4
+1  foo     5
+>>> pd.merge(left,right,on='key')
+   key  lval  rval
+0  foo     1     4
+1  foo     1     5
+2  foo     2     4
+3  foo     2     5
+```
+
+### Getiting data in/out
+
+#### CSV
+- Writing to a csv file.
+```
+>>> df.to_csv('foo.csv')
+```
+- Reading from a csv file.
+```
+>>> pd.read_csv('foo.csv')
+   Unnamed: 0         A         B         C  D
+0  2013-01-01  0.620219 -0.183901 -0.485727  3
+1  2013-01-02  0.106144  0.911428 -0.516627  3
+2  2013-01-03  0.362659 -0.062068 -1.884467  3
+3  2013-01-04 -1.954926  0.000000 -1.382519  3
+4  2013-01-05 -0.874978  1.401606  0.331900  3
+5  2013-01-06  1.552202 -0.319846  0.510372  3
+```
+
+#### HDF5
+- Writing to a HDF5 Store.
+```
+>>> df.to_hdf('foo.h5', 'df')
+```
+- Reading from a HDF5 Store.
+```
+>>> pd.read_hdf('foo.h5', 'df')
+```
+
+#### Excel
+- Writing to an excel file.
+```
+>>> df.to_excel('foo.xlsx', sheet_name='Sheet1')
+```
+- Reading from an excel file.
+```
+>>> pd.read_excel('foo.xlsx', 'Sheet1', index_col=None, na_values=['NA'])
+```
+### Plotting 
+We use the standard convention for referencing the matplotlib API:
+```
+>>> import matplotlib.pyplot as plt
 ```
 
 ### Pandas capabilities:
@@ -574,25 +674,6 @@ Reindexing allows you to change/add/delete the index on a specified axis. This r
 - Robust IO tools for loading data from flat files (CSV and delimited), Excel files, databases, and saving / loading data from the ultrafast HDF5 format
 - Time series-specific functionality: date range generation and frequency conversion, moving window statistics, date shifting and lagging.
 
-#### What kind of data does pandas handle?
-
-#### How do I read and write tabular data?
-
-#### How do I select a subset of a DataFrame?
-
-#### How to create plots in pandas?
-
-#### How to create new columns derived from existing columns?
-
-#### How to calculate summary statistics?
-
-#### How to reshape the layout of tables?
-
-#### How to combine data from multiple tables?
-
-#### How to handle time series data with ease?
-
-#### How to manipulate textual data?
 
 # References
 - [Practical Tutorial on Data Manipulation with Numpy and Pandas in Python](https://www.hackerearth.com/practice/machine-learning/data-manipulation-visualisation-r-python/tutorial-data-manipulation-numpy-pandas-python/tutorial/)
