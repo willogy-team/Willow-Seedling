@@ -275,6 +275,143 @@ array([[ 1,  2,  3,  9],
 |1|Series| 1D labeled homogeneously-typed array|
 |2|DataFrame|General 2D labeled, size-mutable tabular structure with potentially heterogeneously-typed |
 
+### Object creation
+
+- Creating a `Series` by passing a list of values, letting pandas create a default integer index:
+```
+>>> s = pd.Series([1, 3, 5, np.nan, 6, 8])
+>>> s
+0    1.0
+1    3.0
+2    5.0
+3    NaN
+4    6.0
+5    8.0
+dtype: float64
+```
+
+- Creating a `DataFrame` by passing a NumPy array, with a datetime index and labeled columns:
+```
+>>> dates = pd.date_range('20130101', periods=6)
+>>> dates
+DatetimeIndex(['2013-01-01', '2013-01-02', '2013-01-03', '2013-01-04',
+               '2013-01-05', '2013-01-06'],
+              dtype='datetime64[ns]', freq='D')
+>>> df = pd.DataFrame(np.random.randn(6, 4), index=dates, columns=list('ABCD'))
+>>> df
+                   A         B         C         D
+2013-01-01  0.620219 -0.183901 -0.485727 -0.304104
+2013-01-02  0.106144  0.911428 -0.516627 -0.522257
+2013-01-03  0.362659 -0.062068 -1.884467 -0.959284
+2013-01-04 -1.954926  1.424344 -1.382519  0.342304
+2013-01-05 -0.874978  1.401606  0.331900  1.335983
+2013-01-06  1.552202 -0.319846  0.510372 -2.222078
+```
+- Creating a `DataFrame` by passing a dict of objects that can be converted to series-like.
+```
+>>> df2 = pd.DataFrame({'A': 1.,
+...                     'B': pd.Timestamp('20201130'),
+...                     'C': pd.Series(1, index=list(range(4)), dtype='float32'),
+...                     'D': np.array([3] * 4, dtype='int32'),
+...                     'E': pd.Categorical(["test", "train", "test", "train"]),
+...                     'F': 'foo'})
+>>> df2
+     A          B    C  D      E    F
+0  1.0 2020-11-30  1.0  3   test  foo
+1  1.0 2020-11-30  1.0  3  train  foo
+2  1.0 2020-11-30  1.0  3   test  foo
+3  1.0 2020-11-30  1.0  3  train  foo
+```
+
+### Viewing data:
+- Here is how to view the top and bottom rows of the frame:
+```
+>>> df.head()
+                   A         B         C         D
+2013-01-01  0.620219 -0.183901 -0.485727 -0.304104
+2013-01-02  0.106144  0.911428 -0.516627 -0.522257
+2013-01-03  0.362659 -0.062068 -1.884467 -0.959284
+2013-01-04 -1.954926  1.424344 -1.382519  0.342304
+2013-01-05 -0.874978  1.401606  0.331900  1.335983
+>>> df.tail(2)
+                   A         B         C         D
+2013-01-05 -0.874978  1.401606  0.331900  1.335983
+2013-01-06  1.552202 -0.319846  0.510372 -2.222078
+```
+- Display the index, columns:
+```
+>>> df.index
+DatetimeIndex(['2013-01-01', '2013-01-02', '2013-01-03', '2013-01-04',
+               '2013-01-05', '2013-01-06'],
+              dtype='datetime64[ns]', freq='D')
+>>> df.columns
+Index(['A', 'B', 'C', 'D'], dtype='object')
+```
+
+- Converting to a NumPy data. 
+```
+>>> df.to_numpy()
+array([[ 0.62021932, -0.1839012 , -0.48572709, -0.30410424],
+       [ 0.106144  ,  0.91142798, -0.51662651, -0.52225711],
+       [ 0.36265926, -0.06206815, -1.88446734, -0.95928405],
+       [-1.954926  ,  1.4243439 , -1.38251864,  0.34230411],
+       [-0.87497755,  1.40160644,  0.33189998,  1.33598272],
+       [ 1.55220239, -0.319846  ,  0.51037236, -2.22207821]])
+```
+NumPy arrays have one dtype for the entire array, while pandas DataFrames have one dtype per column. When you call `DataFrame.to_numpy()`, `pandas` will find the NumPy dtype that can hold all of the dtypes in the DataFrame. This may end up being `object`, which requires casting every value to a Python object.
+```
+>>> df2.to_numpy()
+array([[1.0, Timestamp('2020-11-30 00:00:00'), 1.0, 3, 'test', 'foo'],
+       [1.0, Timestamp('2020-11-30 00:00:00'), 1.0, 3, 'train', 'foo'],
+       [1.0, Timestamp('2020-11-30 00:00:00'), 1.0, 3, 'test', 'foo'],
+       [1.0, Timestamp('2020-11-30 00:00:00'), 1.0, 3, 'train', 'foo']],
+      dtype=object)
+```
+- Showing statistic summary of your data:
+```
+>>> df.describe()
+              A         B         C         D
+count  6.000000  6.000000  6.000000  6.000000
+mean  -0.031446  0.528594 -0.571178 -0.388239
+std    1.226228  0.810859  0.935797  1.201726
+min   -1.954926 -0.319846 -1.884467 -2.222078
+25%   -0.629697 -0.153443 -1.166046 -0.850027
+50%    0.234402  0.424680 -0.501177 -0.413181
+75%    0.555829  1.279062  0.127493  0.180702
+max    1.552202  1.424344  0.510372  1.335983
+```
+- Transposing your data:
+```
+>>> df.T
+   2013-01-01  2013-01-02  2013-01-03  2013-01-04  2013-01-05  2013-01-06
+A    0.620219    0.106144    0.362659   -1.954926   -0.874978    1.552202
+B   -0.183901    0.911428   -0.062068    1.424344    1.401606   -0.319846
+C   -0.485727   -0.516627   -1.884467   -1.382519    0.331900    0.510372
+D   -0.304104   -0.522257   -0.959284    0.342304    1.335983   -2.222078
+```
+- Sorting by an axis:
+```
+>>> df.sort_index(axis=1,ascending=False)
+                   D         C         B         A
+2013-01-01 -0.304104 -0.485727 -0.183901  0.620219
+2013-01-02 -0.522257 -0.516627  0.911428  0.106144
+2013-01-03 -0.959284 -1.884467 -0.062068  0.362659
+2013-01-04  0.342304 -1.382519  1.424344 -1.954926
+2013-01-05  1.335983  0.331900  1.401606 -0.874978
+2013-01-06 -2.222078  0.510372 -0.319846  1.552202
+```
+- Sorting by values:
+```
+>>> df.sort_values(by='C')
+                   A         B         C         D
+2013-01-03  0.362659 -0.062068 -1.884467 -0.959284
+2013-01-04 -1.954926  1.424344 -1.382519  0.342304
+2013-01-02  0.106144  0.911428 -0.516627 -0.522257
+2013-01-01  0.620219 -0.183901 -0.485727 -0.304104
+2013-01-05 -0.874978  1.401606  0.331900  1.335983
+2013-01-06  1.552202 -0.319846  0.510372 -2.222078
+```
+
 ### Pandas capabilities:
 
 - Easy handling of missing data (represented as NaN) in floating point as well as non-floating point data
