@@ -260,6 +260,72 @@ print(p1, " + ", p2, " = ", p1 + p2)
 |Bitwise OR|`p1 \| p2`|`p1.__or__(p2)`|
 |Bitwise XOR	|`p1 ^ p2`|`p1.__xor__(p2)`|
 |Bitwise NOT	|`~p1`|`p1.__invert__()`|
+
+#### Encapsulation
+We can restrict access to methods and variables. This prevents data from direct modification which is called encapsulation. In Python, we denote private attributes using underscore as the prefix i.e `_`(single) or `__`(double).
+
+(e.g.10)
+```
+class Vehicle:
+    
+    def __init__(self, name, color):
+        self._name = name
+        self._color = color
+    
+    # use instance method to set/get attributes
+    def set_name(self, name):
+        self._name = name
+    
+    def set_color(self, color):
+        self._color = color
+        
+    def get_name(self):
+        return self._name
+    
+    def get_color(self):
+        return self._color
+```
+
+#### Polymorphism
+
+Polymorphism is an ability (in OOP) to use a common interface for multiple forms (data types).
+
+(e.g.11)
+```
+class Vehicle:
+    
+    def __init__(self, name, color):
+        self._name = name
+        self._color = color
+    
+    def get_info(self):
+        return f"The {self._name} vehicle is {self._color}";
+class Thing:
+    def __init__(self, name, color):
+        self._name = name
+        self._color = color
+    
+    def get_info(self):
+        return f"The {self._name} thing is {self._color}";
+        
+# common interface
+class Interface:
+    
+    def get_info(obj):
+        return obj.get_info()
+# instantiate objs
+car = Vehicle("car", "red")
+hat = Thing("hat", "black")
+list = [car, hat]
+# passing the obj
+for obj in list:
+    print(Interface.get_info(obj))
+```
+(output.)
+```
+The car vehicle is red
+The hat thing is black
+```
 # References
 - OOP in Python, [tutorial 1](https://python-textbok.readthedocs.io/en/1.0/Object_Oriented_Programming.html), [tutorial 2](https://realpython.com/python3-object-oriented-programming/)
 - [Python Design Patterns: For Sleek And Fashionable Code](https://www.toptal.com/python/python-design-patterns), Andrei Boyanov
