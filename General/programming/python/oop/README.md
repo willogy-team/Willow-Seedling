@@ -326,6 +326,41 @@ for obj in list:
 The car vehicle is red
 The hat thing is black
 ```
+
+## Design Patterns
+
+### Introduction
+
+In software engineering, a software design pattern is a general, reusable solution to a commonly occurring problem within a given context in software design. Everything starts with the Gang of Four (GOF). The patterns are not only microarchitectural models but also useful as a common design vocabulary among software engineers. The overall architecture of the system and related design decisions can be explained by giving a set of patterns used. While new patterns do emerge the GOF still remains as the definite reference on design patterns. For this reason it is important to introduce these patterns, the notions and the theory behind them and their applicability to Python community.
+
+### Motivation
+
+Design patterns are a common way of solving well known problems. With two principles which they believe would lead to good object-oriented software design:
+- Program to an **interface**, not an **implementation**.
+- Composition over inheritance: "Favor **object composition** over **class inheritance**".
+
+The authors claim the following as advantages of interfaces over implementation:
+- Clients remain unaware of the specific types of objects they use, as long as the object adheres to the interface
+- Clients remain unaware of the classes that implement these objects; clients only know about the abstract class(es) defining the interface
+
+To put it briefly Python is a weakly and dynamically typed interpreted language. Python objects is that they are not merely instances of their classes; their structures can change in runtime. It can be very difficult to understand and maintain.
+
+### Patterns by Type
+
+GOF is divided into three parts and each part describes the patterns related to the theme of the part. The themes describe the purpose of the patterns. 
+- **Creational** patterns address object instantiation issues.
+- **Structural** patterns concentrate on object composition and their relations in the runtime object structures.
+- Whereas the structural patterns describe the layout of the object system, the **behavioral** patterns focus on the internal dynamics and object interaction in the system.
+
+#### Creational patterns
+Creational patterns are ones that create objects, rather than having to instantiate objects directly. This gives the program more flexibility in deciding which objects need to be created for a given case.
+
+#### Structural patterns
+Using inheritance to compose interfaces and define ways to compose objects to obtain new functionality.
+
+#### Behavioral patterns
+Behavioral patterns are concerned with communication between objects.
+
 # References
 - OOP in Python, [tutorial 1](https://python-textbok.readthedocs.io/en/1.0/Object_Oriented_Programming.html), [tutorial 2](https://realpython.com/python3-object-oriented-programming/)
 - [Python Design Patterns: For Sleek And Fashionable Code](https://www.toptal.com/python/python-design-patterns), Andrei Boyanov
