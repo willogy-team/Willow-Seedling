@@ -391,6 +391,120 @@ Behavioral patterns are concerned with communication between objects.
 |Template Method|Defines the skeleton of an algorithm in the superclass but lets subclasses override specific steps of the algorithm without changing its structure.
 |Visitor|Lets you separate algorithms from the objects on which they operate.| 
 
+## OOP Best Practices
+
+### Good Names
+You should give the class a pretty name. Although the only limit of your class name is the rules of a legal Python varible. There are recommended ways to give class names.
+- Use nouns that are easy to pronounce.
+- Reflect its stored data and intended functionalities.
+- Flow naming conventions. Using upper-case camel style for class names, like PrettyClass.
+
+### Explicit Instance Attributes
+The best pratice is to place an instance' attributes in the `__init__` method, such that your code’s reader has a single place to get to know your class’s data structure, as shown below.
+
+### Use Properties — But Parsimoniously
+They’re used to creating getters and setters for attributes of the instances. This pattern can be mimicked with the use of the property decorator in Python.
+
+(e.g.12)
+- Property Decorator
+```
+class Student:
+    def __init__(self, first_name, last_name):
+        self.first_name = first_name
+        self.last_name = last_name
+    
+    @property
+    def name(self):
+        print("Getter for the name")
+        return f"{self.first_name} {self.last_name}"
+    
+    @name.setter
+    def name(self, name):
+        print("Setter for the name")
+        self.first_name, self.last_name = name.split()
+```
+```
+- Use Properties
+>>> student = Student("John", "Smith")
+... print("Student name:", student.name)
+... student.name = "Johnny Smith"
+... print("After setting:",student.name)
+Getter for the name
+Student name: John Smith
+Setter for the name
+Getter for the name
+After setting: Johnny Smith
+```
+### Define Meaningful String Representations
+In Python, functions that have double underscores before and after the name are referred to as special or magic methods, and some people call them dunder methods, such as `__init__`, `__repr__` and `__str__`.
+(e.g.13)
+```
+class Student:
+
+    def __init__(self, first_name, last_name):
+        self.first_name = first_name
+        self.last_name = last_name
+
+    def __repr__(self):
+        return f"Student({self.first_name!r}, {self.last_name!r})"
+    
+    def __str__(self):
+        return f"Student: {self.first_name} {self.last_name}"
+```
+(output.)
+```
+>>> student = Student("David", "Johnson")
+... student
+Student('David', 'Johnson')
+>>> print(student)
+Student: David Johnson
+```
+
+### Instance, Class, and Static Methods
+In a class, we can define three kinds of methods: instance, class, and static methods. You need to consider what methods you should use for the functionalities of concern.
+- Instance methods: are concerned with individual instance objects, which have to have `self` argument in first parameter.
+- `classmethod`s: are not concerned with individual instance objects, which allow you to access or update attributes related to the class.
+- `staticmethod`s: are not concerned with individual instance objects, which are independent of any instance or the class itself.
+(e.g.14)
+```
+class Student:
+
+    def __init__(self, first_name, last_name):
+        self.first_name = first_name
+        self.last_name = last_name
+
+    def begin_study(self):
+        print(f"{self.first_name} {self.last_name} begins studying.")
+
+    @classmethod
+    def from_dict(cls, name_info):
+        first_name = name_info['first_name']
+        last_name = name_info['last_name']
+        return cls(first_name, last_name)
+    
+    @staticmethod
+    def show_duties():
+        return "Study, Play, Sleep"
+```
+
+### Encapsulation Using Private Attributes
+One important way to apply encapsulation is to prefix attributes and functions with an underscore or two underscores, as a convention.
+- **protected** with an underscore: `_my_protected_attribute`.
+- **private** with two underscrores: `__my_private_attribute`.
+
+### Separate Concerns and Decoupling
+You do not make cumbersome mixed functionalities into one class.
+You should separate to concerns.
+
+### Consider __slots__ For Optimization
+The special attribute `__slots__` allows you to explicitly state which instance attributes you expect your object instances to have, with the expected results:
+- faster attribute access.
+- space savings in memory: storing value references in slots instead of `__dict`; denying `__dict__` and `__weakref__` creation if parent classes deny them and you declare `__slots__`.
+
+### Documentation
+Your class do not use unnecessary comments to compensate for bad code (i.e., meaningless variable names in this case). 
+You want to write docstrings for classes. Your responsibility as the programmer to make sure that you provide clear instructions on how to use your programs, which another people aren’t familiar with the relevant codebase.
+
 # References
 - OOP in Python, [tutorial 1](https://python-textbok.readthedocs.io/en/1.0/Object_Oriented_Programming.html), [tutorial 2](https://realpython.com/python3-object-oriented-programming/)
 - [Python Design Patterns: For Sleek And Fashionable Code](https://www.toptal.com/python/python-design-patterns), Andrei Boyanov
