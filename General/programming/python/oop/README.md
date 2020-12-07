@@ -8,9 +8,10 @@
 | **Status**       | In Progress |
 
 # Index
-- [Object Oriented Programming]()
-- [Design Patterns]()
+- [Object Oriented Programming](#object-oriented-programming)
+- [Design Patterns](#design-patterns)
 - [OOP Best Practices]()
+- [References](#references)
 
 ## Object-Oriented Programming
 

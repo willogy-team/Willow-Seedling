@@ -9,11 +9,11 @@
 
 ## Index
 
-- [Introduction](introduction)
-- [Motivation](motivation)
-- [Numpy](numpy)
-- [Pandas](pandas)
-- [Matplotlib](matplotlib)
+- [Introduction](#introduction)
+- [Motivation](#motivation)
+- [Numpy](#numpy-library)
+- [Pandas](#pandas-library)
+- [References](#references)
 
 ## Introduction
 

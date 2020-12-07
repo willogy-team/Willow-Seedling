@@ -8,11 +8,11 @@
 | **Status**       | In Progress |
 
 # Index
-- [Abstract](abstract)
-- [Motivation / Version Control Systems](motivation-vc-system)
-- [Git Basics](git-basics)
-- [Git Branching](git_branching)
-- [Git Commit Message](git_commit_message)
+- [Abstract](#abstract)
+- [Motivation / Version Control Systems](#motivation-vc-system)
+- [Git Basics](#git-basics)
+- [Git Branching](#git-branching)
+- [Git Commit Message](#git-commit-message)
 
 ## Abstract
 

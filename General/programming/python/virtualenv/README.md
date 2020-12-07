@@ -8,10 +8,10 @@
 | **Status**       | Under Review |
 
 # Index
-- Introduction
-- Motivation
-- Virtual Enviroments on Linux
-- Managing Packages with pip
+- [Introduction](#introduction)
+- [Motivation](#motivation)
+- [Virtual Environments on Linux](#virtual-environments-on-linux)
+- [Managing Packages with pip](#managing-packages-with-pip)
 
 ## Introduction
 
@@ -27,7 +27,7 @@ The solution for this problem is to create a **virtual environment**, a self-con
 
 Different applications can then use different virtual environments. To resolve the earlier example of conflicting requirements, application A can have its own virtual environment with version 1.0 installed while application B has another virtual environment with version 2.0. If application B requires a library be upgraded to version 3.0, this will not affect application A’s environment.
 
-## Virtual Enviroments on Linux
+## Virtual Environments on Linux
 
 ### The tool to create isolated Python environmens
 
