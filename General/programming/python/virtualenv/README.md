@@ -5,7 +5,7 @@
 | **Reviewer(s)** | Quang Tran |
 | **Start Date** | Nov 27th, 2020 |
 | **Topic(s)** | General Techniques |
-| **Status**       | In Progress |
+| **Status**       | Under Review |
 
 # Index
 - Introduction
@@ -39,7 +39,7 @@ Different applications can then use different virtual environments. To resolve t
 - does not have as rich programmatic API (describe virtual environments without creating them).
 
 Install `virtualenv`:
-```
+```bash
 $ python -m pip install --user virtualenv
 ```
 
@@ -48,7 +48,7 @@ $ python -m pip install --user virtualenv
 When you switch projects, you can simply create a new virtual environment and not have to worry about breaking the packages installed in the other environments. It is always recommended to use a virtual environment while developing Python applications.
 
 To create a virtual environment, go to your project’s directory and run command line.
-```
+```bash
 $ python -m virtualenv <virtual_environment_name>
 ```
 
@@ -56,7 +56,7 @@ $ python -m virtualenv <virtual_environment_name>
 
 Before you can start installing or using packages in your virtual environment you’ll need to **activate** it. Activating a virtual environment will put the virtual environment-specific `python` and `pip` executables into your shell’s `PATH`.
 
-```
+```bash
 $ source <virtual_environment_name>/bin/activate
 ```
 
@@ -64,7 +64,7 @@ $ source <virtual_environment_name>/bin/activate
 
 If you want to switch projects or otherwise leave your virtual environment, simply run:
 
-```
+```bash
 (env) $ deactivate
 ```
 
@@ -77,10 +77,10 @@ A program help you install, upgrade, and remove packages. By default [pip](https
 ### Search
 
 You can browse the Python Package Index by going to it in your web browser, or you can use pip’s limited search feature:
-```
+```bash
 (env) $ pip search <query>
 ```
-```
+```bash
 (env) $ pip search virtualenv
 virtualenv-switcher (0.1.1)            - Virtualenv switcher.
 virtualenv-api (2.1.18)                - An API for virtualenv/pip
@@ -96,42 +96,42 @@ virtualenv-mgr (1.0.4)                 - Tool to manage your virtualenvs
 ### Install
 
 You can install the latest version of a package by specifying a package’s name:
-```
+```bash
 (env) $  python -m pip install <package_name>
 
 ```
-```
+```bash
 (env) $  python -m pip install numpy
 Collecting numpy
   Downloading numpy-1.19.4-cp37-cp37m-manylinux2010_x86_64.whl (14.5 MB)
-     |████████████████████████████████| 14.5 MB 2.8 MB/s 
+     |████████████████████████████████| 14.5 MB 2.8 MB/s
 Installing collected packages: numpy
 Successfully installed numpy-1.19.4
 ```
 
 You can also install a specific version of a package by giving the package name followed by `==` and the version number:
-```
+```bash
 (env) $  python -m pip install <package_name>==<version>
 
 ```
-```
+```bash
 (env) $ python -m pip install numpy==1.17.2
 Collecting numpy==1.17.2
   Downloading numpy-1.17.2-cp37-cp37m-manylinux1_x86_64.whl (20.3 MB)
-     |████████████████████████████████| 20.3 MB 3.2 MB/s 
+     |████████████████████████████████| 20.3 MB 3.2 MB/s
 Installing collected packages: numpy
   Attempting uninstall: numpy
     Found existing installation: numpy 1.19.4
     Uninstalling numpy-1.19.4:
       Successfully uninstalled numpy-1.19.4
 Successfully installed numpy-1.17.2
-``` 
+```
 
 If you re-run this command, `pip` will notice that the requested version is already installed and do nothing. You can supply a different version number to get that version, or you can `run pip install --upgrade` to upgrade the package to the latest version:
-```
+```bash
 (env) $ python -m pip install --upgrade <package_name>
 ```
-```
+```bash
 (env) $ python -m pip install --upgrade numpy
 Collecting numpy
   Using cached numpy-1.19.4-cp37-cp37m-manylinux2010_x86_64.whl (14.5 MB)
@@ -146,10 +146,10 @@ Successfully installed numpy-1.19.4
 ### Uninstall
 
 You can uninstall package.
-```
+```bash
 (env) $ pip uninstall <package_name>
 ```
-```
+```bash
 (env) $ pip uninstall numpy
 Found existing installation: numpy 1.19.4
 Uninstalling numpy-1.19.4:
@@ -170,10 +170,10 @@ Proceed (y/n)? y
 ### Show
 
 You want to view information about a particular package:
-```
+```bash
 (env) $ pip show <package_name>
 ```
-```
+```bash
 (env) $ pip show numpy
 Name: numpy
 Version: 1.17.2
@@ -183,14 +183,14 @@ Author: Travis E. Oliphant et al.
 Author-email: None
 License: BSD
 Location: /home/env/lib/python3.7/site-packages
-Requires: 
-Required-by: 
+Requires:
+Required-by:
 ```
 
 ### List
 
 You can see all of the packages installed in the virtual environment:
-```
+```bash
 (env) $ pip list
 Package         Version
 --------------- -------
@@ -211,7 +211,7 @@ wheel           0.35.1
 ### Freeze
 
 You can make a similar list of the installed packages, but the output uses the format that pip `install` expects. A common convention is to put this list in a `requirements.txt` file:
-```
+```bash
 (env) $ pip freeze > requirements.txt
 (env) $ cat requirements.txt
 cachetools==4.1.1
@@ -226,7 +226,7 @@ rsa==4.6
 six==1.15.0
 ```
 The `requirements.txt` can then be committed to version control and shipped as part of an application. Users can then install all the necessary packages with `install -r`:
-```
+```bash
 (env) $ python -m pip install -r requirements.txt
 ```
 

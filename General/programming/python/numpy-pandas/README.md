@@ -5,15 +5,15 @@
 | **Reviewer(s)** | Quang Tran |
 | **Start Date** | Nov 27th, 2020 |
 | **Topic(s)** | General Techniques |
-| **Status**       | In Progress |
+| **Status**       | Under Review |
 
-# Index 
+## Index
 
-- Introduction
-- Motivation
-- Numpy
-- Pandas
-- Matplotlib
+- [Introduction](introduction)
+- [Motivation](motivation)
+- [Numpy](numpy)
+- [Pandas](pandas)
+- [Matplotlib](matplotlib)
 
 ## Introduction
 
@@ -21,9 +21,9 @@ Python is one of the most popular and widely used programming languages and has 
 
 ## Motivation
 
-Vectorization of `numpy` make code is more concise and easier to read, fewer lines, closely resembles standard mathematical notation, do fast. 
+Vectorization of `numpy` make code is more concise and easier to read, fewer lines, closely resembles standard mathematical notation, do fast.
 
-The entire process of manipulating data will be easier if use `pandas`. It support for operations such as re-indexing, iteration, sorting, aggregations, concatenations and visualizations are among the feature highlights of `pandas`. The data manipulation capabilities of `pandas` are built on top of the `numpy` library. 
+The entire process of manipulating data will be easier if use `pandas`. It support for operations such as re-indexing, iteration, sorting, aggregations, concatenations and visualizations are among the feature highlights of `pandas`. The data manipulation capabilities of `pandas` are built on top of the `numpy` library.
 
 ## Numpy Library
 
@@ -34,19 +34,19 @@ NumPy’s main object is the homogeneous multidimensional array. It is a table o
 It is called `ndarray` with alias `array`. The more important attributes of an `ndarray` object are:
 
 - **ndarray.ndim**: the number of axes (dimensions) of the array.
-    
+
 - **ndarray.shape**: the dimensions of the array. This is a tuple of integers indicating the size of the array in each dimension. For a matrix with n rows and m columns, `shape` will be `(n,m)`. The length of the `shape` tuple is therefore the number of axes, `ndim`.
-    
+
 - **ndarray.size**: the total number of elements of the array. This is equal to the product of the elements of `shape`.
-    
+
 - **ndarray.dtype**: an object describing the type of the elements in the array. One can create or specify dtype’s using standard Python types. Additionally NumPy provides types of its own. numpy.int32, numpy.int16, and numpy.float64 are some examples.
-    
+
 - **ndarray.itemsize**: the size in bytes of each element of the array. For example, an array of elements of type `float64` has `itemsize` 8 (=64/8), while one of type `complex32` has `itemsize` 4 (=32/8). It is equivalent to `ndarray.dtype.itemsize`.
-    
+
 - **ndarray.data**: the buffer containing the actual elements of the array. Normally, we won’t need to use this attribute because we will access the elements in an array using indexing facilities.
 
 (E.g.)
-```
+```python
 >>> import numpy as np
 
 >>> a = np.arange(15).reshape(3, 5)
@@ -84,7 +84,7 @@ array([6, 7, 8])
 ```
 ### Loading the library and check its version
 
-```
+```python
 import numpy as np
 np.__version__
 ````
@@ -95,14 +95,14 @@ If you do not install `numpy`, or set up virtual enviroment, please read [link](
 
 - Create zeros array
 
-```
+```python
 >>> np.zeros(10, dtype='int')
 array([0, 0, 0, 0, 0, 0, 0, 0, 0, 0])
 ```
 
 - Create a n rows by m columns matrix:
 
-```
+```python
 >>> n, m = 3,5
 >>> np.ones((3,5), dtype=float)
 array([[ 1.,  1.,  1.,  1.,  1.],
@@ -112,7 +112,7 @@ array([[ 1.,  1.,  1.,  1.,  1.],
 
 - Create a matrix with a predefined value
 
-```
+```python
 >>> predefined_value = 1.23
 >>> np.full((3,5), predefined_value)
 array([[ 1.23,  1.23,  1.23,  1.23,  1.23],
@@ -122,21 +122,21 @@ array([[ 1.23,  1.23,  1.23,  1.23,  1.23],
 
 - Create an array with a set sequence
 
-```
+```python
 >>> np.arange(0, 20, 2)
 array([0, 2, 4, 6, 8,10,12,14,16,18])
 ```
 
 - Create an array of even space between the given range of values
 
-```
+```python
 >>> np.linspace(0, 1, 5)
 array([ 0., 0.25, 0.5 , 0.75, 1.])
 ```
 
 - Create an identity matrix
 
-```
+```python
 >>> np.eye(3)
 array([[ 1.,  0.,  0.],
       [ 0.,  1.,  0.],
@@ -147,7 +147,7 @@ array([[ 1.,  0.,  0.],
 
 - In a one-dimensional array, can access value from index as `list`:
 
-```
+```python
 >>> x1 = np.array([4, 3, 4, 4, 8, 4])
 >>> x1
 array([4, 3, 4, 4, 8, 4])
@@ -171,7 +171,7 @@ array([4, 3, 4, 4, 8, 4])
 
 - In a multidimensional array, we need to specify row and column index:
 
-```
+```python
 >>> x2
 array([[3, 7, 5, 5],
       [0, 1, 5, 9],
@@ -198,7 +198,7 @@ array([[12,  7,  5,  5],
 ### Array Slicing
 You base array indexing with `list` slicing behaviors can do.
 
-```
+```python
 >>> x=np.arange(15).reshape((3,5))
 >>> x
 array([[ 0,  1,  2,  3,  4],
@@ -211,7 +211,7 @@ array([[0, 1, 2, 3, 4],
        [5, 6, 7, 8, 9]])
 
 #from 2th to 3th position collumns
->>> x[:,2:4] 
+>>> x[:,2:4]
 array([[ 2,  3],
        [ 7,  8],
        [12, 13]])
@@ -219,7 +219,7 @@ array([[ 2,  3],
 
 ### Array Concatenation
 
-```
+```python
 #You can concatenate two or more arrays at once.
 >>> x = np.array([1, 2, 3])
 >>> y = np.array([3, 2, 1])
@@ -242,7 +242,7 @@ array([[1, 2, 3],
 array([[1, 2, 3, 1, 2, 3],
       [4, 5, 6, 4, 5, 6]])
 ```
-```
+```python
 >>> x = np.array([3,4,5])
 >>> grid = np.array([[1,2,3],[17,18,19]])
 >>> np.vstack([x,grid])
@@ -278,7 +278,7 @@ array([[ 1,  2,  3,  9],
 ### Object creation
 
 - Creating a `Series` by passing a list of values, letting pandas create a default integer index:
-```
+```python
 >>> s = pd.Series([1, 3, 5, np.nan, 6, 8])
 >>> s
 0    1.0
@@ -291,7 +291,7 @@ dtype: float64
 ```
 
 - Creating a `DataFrame` by passing a NumPy array, with a datetime index and labeled columns:
-```
+```python
 >>> dates = pd.date_range('20130101', periods=6)
 >>> dates
 DatetimeIndex(['2013-01-01', '2013-01-02', '2013-01-03', '2013-01-04',
@@ -308,7 +308,7 @@ DatetimeIndex(['2013-01-01', '2013-01-02', '2013-01-03', '2013-01-04',
 2013-01-06  1.552202 -0.319846  0.510372 -2.222078
 ```
 - Creating a `DataFrame` by passing a dict of objects that can be converted to series-like.
-```
+```python
 >>> df2 = pd.DataFrame({'A': 1.,
 ...                     'B': pd.Timestamp('20201130'),
 ...                     'C': pd.Series(1, index=list(range(4)), dtype='float32'),
@@ -325,7 +325,7 @@ DatetimeIndex(['2013-01-01', '2013-01-02', '2013-01-03', '2013-01-04',
 
 ### Viewing data:
 - Here is how to view the top and bottom rows of the frame:
-```
+```python
 >>> df.head()
                    A         B         C         D
 2013-01-01  0.620219 -0.183901 -0.485727 -0.304104
@@ -339,7 +339,7 @@ DatetimeIndex(['2013-01-01', '2013-01-02', '2013-01-03', '2013-01-04',
 2013-01-06  1.552202 -0.319846  0.510372 -2.222078
 ```
 - Display the index, columns:
-```
+```python
 >>> df.index
 DatetimeIndex(['2013-01-01', '2013-01-02', '2013-01-03', '2013-01-04',
                '2013-01-05', '2013-01-06'],
@@ -348,8 +348,8 @@ DatetimeIndex(['2013-01-01', '2013-01-02', '2013-01-03', '2013-01-04',
 Index(['A', 'B', 'C', 'D'], dtype='object')
 ```
 
-- Converting to a NumPy data. 
-```
+- Converting to a NumPy data.
+```python
 >>> df.to_numpy()
 array([[ 0.62021932, -0.1839012 , -0.48572709, -0.30410424],
        [ 0.106144  ,  0.91142798, -0.51662651, -0.52225711],
@@ -359,7 +359,7 @@ array([[ 0.62021932, -0.1839012 , -0.48572709, -0.30410424],
        [ 1.55220239, -0.319846  ,  0.51037236, -2.22207821]])
 ```
 NumPy arrays have one dtype for the entire array, while pandas DataFrames have one dtype per column. When you call `DataFrame.to_numpy()`, `pandas` will find the NumPy dtype that can hold all of the dtypes in the DataFrame. This may end up being `object`, which requires casting every value to a Python object.
-```
+```python
 >>> df2.to_numpy()
 array([[1.0, Timestamp('2020-11-30 00:00:00'), 1.0, 3, 'test', 'foo'],
        [1.0, Timestamp('2020-11-30 00:00:00'), 1.0, 3, 'train', 'foo'],
@@ -368,7 +368,7 @@ array([[1.0, Timestamp('2020-11-30 00:00:00'), 1.0, 3, 'test', 'foo'],
       dtype=object)
 ```
 - Showing statistic summary of your data:
-```
+```python
 >>> df.describe()
               A         B         C         D
 count  6.000000  6.000000  6.000000  6.000000
@@ -381,7 +381,7 @@ min   -1.954926 -0.319846 -1.884467 -2.222078
 max    1.552202  1.424344  0.510372  1.335983
 ```
 - Transposing your data:
-```
+```python
 >>> df.T
    2013-01-01  2013-01-02  2013-01-03  2013-01-04  2013-01-05  2013-01-06
 A    0.620219    0.106144    0.362659   -1.954926   -0.874978    1.552202
@@ -390,7 +390,7 @@ C   -0.485727   -0.516627   -1.884467   -1.382519    0.331900    0.510372
 D   -0.304104   -0.522257   -0.959284    0.342304    1.335983   -2.222078
 ```
 - Sorting by an axis:
-```
+```python
 >>> df.sort_index(axis=1,ascending=False)
                    D         C         B         A
 2013-01-01 -0.304104 -0.485727 -0.183901  0.620219
@@ -401,7 +401,7 @@ D   -0.304104   -0.522257   -0.959284    0.342304    1.335983   -2.222078
 2013-01-06 -2.222078  0.510372 -0.319846  1.552202
 ```
 - Sorting by values:
-```
+```python
 >>> df.sort_values(by='C')
                    A         B         C         D
 2013-01-03  0.362659 -0.062068 -1.884467 -0.959284
@@ -416,7 +416,7 @@ D   -0.304104   -0.522257   -0.959284    0.342304    1.335983   -2.222078
 #### Getting
 
 - Selecting a single column, which yields a `Series`, equivalent to df.A:
-```
+```python
 >>> df['A']
 2013-01-01    0.620219
 2013-01-02    0.106144
@@ -428,7 +428,7 @@ Freq: D, Name: A, dtype: float64
 ```
 
 - Selecting via `[]`, which slices the rows.
-```
+```python
 >>> df[0:2]
                    A         B         C         D
 2013-01-01  0.620219 -0.183901 -0.485727 -0.304104
@@ -442,7 +442,7 @@ Freq: D, Name: A, dtype: float64
 #### Selection by label
 
 - For getting a cross section using a label:
-```
+```python
 >>> df.loc['20130102']
 A    0.106144
 B    0.911428
@@ -452,7 +452,7 @@ Name: 2013-01-02 00:00:00, dtype: float64
 ```
 
 - Selecting on a multi-axis by label:
-```
+```python
 >>> df.loc[:, ['A', 'C']]
                    A         C
 2013-01-01  0.620219 -0.485727
@@ -465,7 +465,7 @@ Name: 2013-01-02 00:00:00, dtype: float64
 #### Selection by position
 
 - Select via the position of the passed integers:
-```
+```python
 >>> df.iloc[3]
 A   -1.954926
 B    1.424344
@@ -474,7 +474,7 @@ D    0.342304
 Name: 2013-01-04 00:00:00, dtype: float64
 ```
 - By integer slices, acting similar to numpy/python:
-```
+```python
 >>> df.iloc[3:5, 0:2]
                    A         B
 2013-01-04 -1.954926  1.424344
@@ -483,7 +483,7 @@ Name: 2013-01-04 00:00:00, dtype: float64
 
 #### Boolean indexing
 - Using a single column’s values to select data.
-```
+```python
 >>> df[df['A'] > 0]
                    A         B         C         D
 2013-01-01  0.620219 -0.183901 -0.485727 -0.304104
@@ -492,7 +492,7 @@ Name: 2013-01-04 00:00:00, dtype: float64
 2013-01-06  1.552202 -0.319846  0.510372 -2.222078
 ```
 - Selecting values from a DataFrame where a boolean condition is met.
-```
+```python
 >>> df[df > 0]
                    A         B         C         D
 2013-01-01  0.620219       NaN       NaN       NaN
@@ -503,9 +503,9 @@ Name: 2013-01-04 00:00:00, dtype: float64
 2013-01-06  1.552202       NaN  0.510372       NaN
 ```
 
-#### Setting 
+#### Setting
 Setting values by selecting method
-```
+```python
 >>> df.at['20130104','B']=0  # by value
 >>> df.iat[0,3]=0  # by position
 >>> df.loc[:,'D']=np.array([3]*len(df))  # by assigning with a NumPy array:
@@ -521,10 +521,10 @@ Setting values by selecting method
 
 ### Missing data
 
-`pandas` primarily uses the value `np.nan` to represent missing data. It is by default not included in computations. 
+`pandas` primarily uses the value `np.nan` to represent missing data. It is by default not included in computations.
 
 Reindexing allows you to change/add/delete the index on a specified axis. This returns a copy of the data.
-```
+```python
 >>> df1 = df.reindex(index=dates[0:4], columns=list(df.columns) + ['E'])
 >>> df1.loc[dates[0]:dates[1], 'E'] = 1
 >>> df1
@@ -535,14 +535,14 @@ Reindexing allows you to change/add/delete the index on a specified axis. This r
 2013-01-04 -1.954926  0.000000 -1.382519  3  NaN
 ```
 - To drop any rows that have missing data.
-```
+```python
 >>> df1.dropna(how='any')
                    A         B         C  D    E
 2013-01-01  0.620219 -0.183901 -0.485727  3  1.0
 2013-01-02  0.106144  0.911428 -0.516627  3  1.0
 ```
 - Filling missing data.
-```
+```python
 >>> df1.fillna(value=3.14)
                    A         B         C  D     E
 2013-01-01  0.620219 -0.183901 -0.485727  3  1.00
@@ -551,7 +551,7 @@ Reindexing allows you to change/add/delete the index on a specified axis. This r
 2013-01-04 -1.954926  0.000000 -1.382519  3  3.14
 ```
 - To get the boolean mask where values are `NaN`.
-```
+```python
 >>> pd.isna(df1)
                 A      B      C      D      E
 2013-01-01  False  False  False  False  False
@@ -560,7 +560,7 @@ Reindexing allows you to change/add/delete the index on a specified axis. This r
 2013-01-04  False  False  False  False   True
 ```
 ### Operations
-```
+```python
 >>> dates
 DatetimeIndex(['2020-11-30', '2020-12-01', '2020-12-02', '2020-12-03',
                '2020-12-04', '2020-12-05'],
@@ -577,7 +577,7 @@ DatetimeIndex(['2020-11-30', '2020-12-01', '2020-12-02', '2020-12-03',
 ```
 #### Stats
 Performing a descriptive statistic:
-```
+```python
 >>> df.mean()
 A    0.413569
 B    0.352240
@@ -586,7 +586,7 @@ D   -0.743670
 dtype: float64
 ```
 Same operation on the other axis:
-```
+```python
 >>> df.mean(1)
 0    0.737648
 1    0.875236
@@ -598,7 +598,7 @@ dtype: float64
 ```
 #### Apply
 Applying functions to the data:
-```
+```python
 >>> df.mean(1)
 2020-11-30   -0.268081
 2020-12-01   -0.299999
@@ -609,7 +609,7 @@ Applying functions to the data:
 Freq: D, dtype: float64
 ```
 #### Histogramming
-```
+```python
 >>> s = pd.Series(np.random.randint(0, 7, size=10))
 >>> s
 0    5
@@ -636,7 +636,7 @@ dtype: int64
 
 #### String Methods
 Series is equipped with a set of string processing methods in the str attribute that make it easy to operate on each element of the array, as in the code snippet below.
-```
+```python
 >>> s = pd.Series(['A', 'B', 'C', 'Aaba', 'Baca', np.nan, 'CABA', 'dog', 'cat'])
 >>> s.str.lower()
 0       a
@@ -655,7 +655,7 @@ dtype: object
 #### Concat
 `pandas` provides various facilities for easily combining together Series and DataFrame objects with various kinds of set logic for the indexes and relational algebra functionality in the case of join / merge-type operations.
 
-```
+```python
 >>> df = pd.DataFrame(np.random.randn(10, 4))
 >>> df
           0         1         2         3
@@ -688,7 +688,7 @@ dtype: object
 
 SQL style merges.
 
-```
+```python
 >>> left = pd.DataFrame({'key': ['foo', 'foo'], 'lval': [1, 2]})
 >>> right = pd.DataFrame({'key': ['foo', 'foo'], 'rval': [4, 5]})
 >>> left
@@ -712,7 +712,7 @@ By “group by” we are referring to a process involving one or more of the fol
 - **Splitting** the data into groups based on some criteria
 - **Applying** a function to each group independently
 - **Combining** the results into a data structure
-```
+```python
 # E.g.
 >>> df = pd.DataFrame({'A': ['foo', 'bar', 'foo', 'bar',
 ...                          'foo', 'bar', 'foo', 'foo'],
@@ -732,7 +732,7 @@ By “group by” we are referring to a process involving one or more of the fol
 7  foo  three -1.434000 -0.323896
 ```
 Grouping and then applying the `sum()` function to the resulting groups.
-```
+```python
 >>> df.groupby('A').sum()
             C         D
 A                      
@@ -740,7 +740,7 @@ bar  1.836593  0.205457
 foo -2.741757  1.816356
 ```
 Grouping by multiple columns forms a hierarchical index, and again we can apply the `sum()` function.
-```
+```python
 >>> df.groupby(['A', 'B']).sum()
                   C         D
 A   B                        
@@ -755,11 +755,11 @@ foo one   -2.343647  1.660927
 
 #### CSV
 - Writing to a csv file.
-```
+```python
 >>> df.to_csv('foo.csv')
 ```
 - Reading from a csv file.
-```
+```python
 >>> pd.read_csv('foo.csv')
    Unnamed: 0         A         B         C  D
 0  2013-01-01  0.620219 -0.183901 -0.485727  3
@@ -772,26 +772,26 @@ foo one   -2.343647  1.660927
 
 #### HDF5
 - Writing to a HDF5 Store.
-```
+```python
 >>> df.to_hdf('foo.h5', 'df')
 ```
 - Reading from a HDF5 Store.
-```
+```python
 >>> pd.read_hdf('foo.h5', 'df')
 ```
 
 #### Excel
 - Writing to an excel file.
-```
+```python
 >>> df.to_excel('foo.xlsx', sheet_name='Sheet1')
 ```
 - Reading from an excel file.
-```
+```python
 >>> pd.read_excel('foo.xlsx', 'Sheet1', index_col=None, na_values=['NA'])
 ```
-### Plotting 
+### Plotting
 We use the standard convention for referencing the matplotlib API:
-```
+```python
 >>> import matplotlib.pyplot as plt
 ```
 

@@ -16,7 +16,7 @@
 
 ### Introduction
 
-Different to procedural programming approach, which structures a program like a recipe in that it provides a set of steps, in the form of functions and code blocks, that flow sequentially in order to complete a task. Object-Oriented Programing(OOP) is a programming paradigm that provides a means of structuring programs so that properties and behaviors are bundled into individual objects. Put another way, object-oriented programming is an approach for modeling concrete, real-world things, like cars, as well as relations between things, like companies and employees, students and teachers, and so on. 
+Different to procedural programming approach, which structures a program like a recipe in that it provides a set of steps, in the form of functions and code blocks, that flow sequentially in order to complete a task. Object-Oriented Programing(OOP) is a programming paradigm that provides a means of structuring programs so that properties and behaviors are bundled into individual objects. Put another way, object-oriented programming is an approach for modeling concrete, real-world things, like cars, as well as relations between things, like companies and employees, students and teachers, and so on.
 
 ### Motivation
 
@@ -37,23 +37,23 @@ An object can be created from a `class`, is also called an instance of a `class`
 
 Like function definitions begin with the `def` keyword in Python, class definitions begin with a `class` keyword.
 
-(e.g.1) Create empty `Thing` class. 
-```
+(e.g.1) Create empty `Thing` class.
+```python
 class EmptyThing:
     ''' This is a docstring. The empty class'''
     pass
 ```
 
 (e.g.2) Create `Thing` class with two attributes
-```
+```python
 class Thing:
     ''' This is a thing class'''
-    
+
     # constructor declaration
     def __init__(self, name, color):
         self.__name = name
         self.__color = color
-     
+
     # instance method
     def get_info(self):
         return f"This object is a(n) {self.__color} {self.__name}."
@@ -61,7 +61,7 @@ class Thing:
 #### Creating an object in Python
 
 (e.g.3 on 1/2)
-```
+```python
 obj1 = EmptyThing()
 obj2 = Thing("car", "red")
 
@@ -82,17 +82,17 @@ From (e.g.2) the `__init__()` function gets called whenever a new object of that
 Defaultly, this special function is not defined then construct new object with no parameters (e.g.3 `obj1`). But, if you defined `__init__` function, you must create new instance with adequate parameters (e.g.3 `obj2`).
 
 
-#### Deleting Attributes and Objects 
+#### Deleting Attributes and Objects
 
 (e.g.4 on 3)
-```
+```python
 # delete attribute name in obj2
 del obj2.name
 # delte obj1
 del obj
 ```
 
-#### Destructor in Python 
+#### Destructor in Python
 
 Automatically destroyed.
 
@@ -101,25 +101,25 @@ Automatically destroyed.
 Inheritance is a way of creating a new class for using details of an existing class without modifying it. The newly formed class is a derived class (or child class). Similarly, the existing class is a base class (or parent class).
 
 #### Inheritance Syntax
-```
+```python
 # parent class
 class BaseClass:
     ...
-    
+
 # child class
 class DerivedClass(BaseClass):
     ...
 ```
 (e.g.5)
-```
+```python
 class Thing:
     ''' This is a thing, base class'''
-    
+
     # constructor declaration
     def __init__(self, name, color):
         self.__name = name
         self.__color = color
-     
+
     # instance method
     def get_info(self):
         return f"This object is a(n) {self.__color} {self.__name}."
@@ -127,15 +127,15 @@ class Thing:
 
 class Car(Thing):
     ''' This is a car, child class'''
-    
+
     def __init__(self, name, color, brand):
         super().__init__(name, color) # call function from superclass
         self.__brand = brand
-    
+
     def get_brand(self):
         return f"Brand: {self.__brand}"
- 
- 
+
+
 car = Car("car", "red","Toyota")
 print(car.get_info())
 print(car.get_brand())
@@ -146,12 +146,12 @@ This object is a(n) red car.
 Brand: Toyota
 ```
 #### Method Overriding in Python
-In (e.g.5) `__init__` method was defined in both classes `Thing` and `Car`. When this happens, the method in the derived class overrides that in the base class. 
+In (e.g.5) `__init__` method was defined in both classes `Thing` and `Car`. When this happens, the method in the derived class overrides that in the base class.
 
 Two built-in functions `isinstance()` and `issubclass()` are used to check inheritances.
 
 (e.g.6)
-```
+```python
 lists = [Thing, Car, int, object]
 print("Instance")
 for obj in lists:
@@ -179,7 +179,7 @@ True
 A `class` can be derived from more than one base class in Python, similar to C++. This is called multiple inheritance.
 
 #### Multiple derived inheritance
-```
+```python
 # parent classes
 class Base1:
     ...
@@ -194,7 +194,7 @@ class MultiDerivedClass(Base1, Base2 [,...]):
 
 #### Multilevel Inheritance
 (e.g.7)
-```
+```python
 class Base:
     pass
 
@@ -206,7 +206,7 @@ class DouDerived(Derived):
 ```
 #### Method Resolution Order in Python
 (e.g.8 on 7)
-```
+```python
 print(DouDerived.__mro__)
 print(DoutDerived.mro())
 ```
@@ -219,17 +219,17 @@ print(DoutDerived.mro())
 Python operators work for built-in classes. These features in Python that allow the same operator to have different meaning according to the context are called operator overloading. Put another way, that is Pythonic.
 
 (e.g.9)
-```
+```python
 class Point:
 
     def __init__(self, x=0, y=0):
         self.x = x
         self.y = y
-    
+
     # convert Point to str
     def __str__(self) -> str:
         return f"({self.x}, {self.y})"
-    
+
     # compute self + other
     def __add__(self, other) -> Point:
         x = self.x + other.x
@@ -265,23 +265,23 @@ print(p1, " + ", p2, " = ", p1 + p2)
 We can restrict access to methods and variables. This prevents data from direct modification which is called encapsulation. In Python, we denote private attributes using underscore as the prefix i.e `_`(single) or `__`(double).
 
 (e.g.10)
-```
+```python
 class Vehicle:
-    
+
     def __init__(self, name, color):
         self._name = name
         self._color = color
-    
+
     # use instance method to set/get attributes
     def set_name(self, name):
         self._name = name
-    
+
     def set_color(self, color):
         self._color = color
-        
+
     def get_name(self):
         return self._name
-    
+
     def get_color(self):
         return self._color
 ```
@@ -291,26 +291,26 @@ class Vehicle:
 Polymorphism is an ability (in OOP) to use a common interface for multiple forms (data types).
 
 (e.g.11)
-```
+```python
 class Vehicle:
-    
+
     def __init__(self, name, color):
         self._name = name
         self._color = color
-    
+
     def get_info(self):
         return f"The {self._name} vehicle is {self._color}";
 class Thing:
     def __init__(self, name, color):
         self._name = name
         self._color = color
-    
+
     def get_info(self):
         return f"The {self._name} thing is {self._color}";
-        
+
 # common interface
 class Interface:
-    
+
     def get_info(obj):
         return obj.get_info()
 # instantiate objs
@@ -347,7 +347,7 @@ To put it briefly Python is a weakly and dynamically typed interpreted language.
 
 ### Patterns by Type
 
-GOF is divided into three parts and each part describes the patterns related to the theme of the part. The themes describe the purpose of the patterns. 
+GOF is divided into three parts and each part describes the patterns related to the theme of the part. The themes describe the purpose of the patterns.
 - **Creational** patterns address object instantiation issues.
 - **Structural** patterns concentrate on object composition and their relations in the runtime object structures.
 - Whereas the structural patterns describe the layout of the object system, the **behavioral** patterns focus on the internal dynamics and object interaction in the system.
@@ -389,7 +389,7 @@ Behavioral patterns are concerned with communication between objects.
 |State|Lets an object alter its behavior when its internal state changes. It appears as if the object changed its class.|
 |Strategy|Lets you define a family of algorithms, put each of them into a separate class, and make their objects interchangeable.|
 |Template Method|Defines the skeleton of an algorithm in the superclass but lets subclasses override specific steps of the algorithm without changing its structure.
-|Visitor|Lets you separate algorithms from the objects on which they operate.| 
+|Visitor|Lets you separate algorithms from the objects on which they operate.|
 
 ## OOP Best Practices
 
@@ -407,24 +407,25 @@ They’re used to creating getters and setters for attributes of the instances. 
 
 (e.g.12)
 - Property Decorator
-```
+```python
 class Student:
     def __init__(self, first_name, last_name):
         self.first_name = first_name
         self.last_name = last_name
-    
+
     @property
     def name(self):
         print("Getter for the name")
         return f"{self.first_name} {self.last_name}"
-    
+
     @name.setter
     def name(self, name):
         print("Setter for the name")
         self.first_name, self.last_name = name.split()
 ```
-```
+
 - Use Properties
+```python
 >>> student = Student("John", "Smith")
 ... print("Student name:", student.name)
 ... student.name = "Johnny Smith"
@@ -438,7 +439,7 @@ After setting: Johnny Smith
 ### Define Meaningful String Representations
 In Python, functions that have double underscores before and after the name are referred to as special or magic methods, and some people call them dunder methods, such as `__init__`, `__repr__` and `__str__`.
 (e.g.13)
-```
+```python
 class Student:
 
     def __init__(self, first_name, last_name):
@@ -447,12 +448,12 @@ class Student:
 
     def __repr__(self):
         return f"Student({self.first_name!r}, {self.last_name!r})"
-    
+
     def __str__(self):
         return f"Student: {self.first_name} {self.last_name}"
 ```
 (output.)
-```
+```python
 >>> student = Student("David", "Johnson")
 ... student
 Student('David', 'Johnson')
@@ -466,7 +467,7 @@ In a class, we can define three kinds of methods: instance, class, and static me
 - `classmethod`s: are not concerned with individual instance objects, which allow you to access or update attributes related to the class.
 - `staticmethod`s: are not concerned with individual instance objects, which are independent of any instance or the class itself.
 (e.g.14)
-```
+```python
 class Student:
 
     def __init__(self, first_name, last_name):
@@ -481,7 +482,7 @@ class Student:
         first_name = name_info['first_name']
         last_name = name_info['last_name']
         return cls(first_name, last_name)
-    
+
     @staticmethod
     def show_duties():
         return "Study, Play, Sleep"
@@ -502,7 +503,7 @@ The special attribute `__slots__` allows you to explicitly state which instance 
 - space savings in memory: storing value references in slots instead of `__dict`; denying `__dict__` and `__weakref__` creation if parent classes deny them and you declare `__slots__`.
 
 ### Documentation
-Your class do not use unnecessary comments to compensate for bad code (i.e., meaningless variable names in this case). 
+Your class do not use unnecessary comments to compensate for bad code (i.e., meaningless variable names in this case).
 You want to write docstrings for classes. Your responsibility as the programmer to make sure that you provide clear instructions on how to use your programs, which another people aren’t familiar with the relevant codebase.
 
 # References

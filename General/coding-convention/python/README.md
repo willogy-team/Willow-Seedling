@@ -5,7 +5,7 @@
 | **Reviewer(s)** | Quang Tran |
 | **Start Date** | Nov 24th, 2020 |
 | **Topic(s)** | General Techniques |
-| **Status**       | In Progress |
+| **Status**       | Under Review |
 
 # Index
 
@@ -32,11 +32,11 @@ Import each module using the full pathname location of the module.
 
 Do should import each module by its full package name.<br/>
 Yes:
-```
+```python
 import doctor.who import jodie
 ```
 No:
-```
+```python
 import jodie
 ```
 
@@ -44,7 +44,7 @@ import jodie
 Exceptions are allowed but must be used carefully.
 
 Must follow certain conditions:
-- Make use exceptions when it makes sense. 
+- Make use exceptions when it makes sense.
 - Never use catch-all ```except:``` statements, or catch ```Exception``` or ```StandardedError```
 - Minimize the amount of code in a ```try```/```except``` block.
 - Use the ```finally``` clause to excute code whether or not an exception is raised in the `try` block.
@@ -53,7 +53,7 @@ Must follow certain conditions:
 Avoid global variables.
 
 Can use module-level constants: `MAX_VOLUME = 100`.<br/>
-If needed, shoule use with prefix `_` to the name. 
+If needed, shoule use with prefix `_` to the name.
 
 ### II.6. Nested/Local/Inner Classes and Functions
 Nested local functions or classes are fine when used to close over a local variable. Inner classes are fine.
@@ -62,7 +62,7 @@ Nested local functions or classes are fine when used to close over a local varia
 ### II.7. Comprehensions & Generator Expressions
 Each portion must fit on one line: mapping expression, `for` clause, filter expression. Use loops instead when things get more complicated.<br/>
 Yes:
-```
+```python
     result = [mapping_expr for value in iterable if filter_expr]
 
     result = [{'key': value} for value in iterable
@@ -70,7 +70,7 @@ Yes:
 
     result = [complicated_transform(x)
               for x in iterable if predicate(x)]
-              
+
     result = []
     for x in range(10):
         for y in range(5):
@@ -78,14 +78,14 @@ Yes:
                 result.append((x, y))
 ```
 No:
-```
+```python
     result = [(x, y) for x in range(10) for y in range(5) if x * y > 10]
 ```
 
 ### II.8. Default Iterators and Operators
 Use default iterators and operators for types that support them, like lists, dictionaries, and files.<br/>
-Yes: 
-```
+Yes:
+```python
     for key in adict: ...
     if key not in adict: ...
     if obj in alist: ...
@@ -94,7 +94,7 @@ Yes:
     for k, v in six.iteritems(adict): ...
 ```
 No:
-```
+```python
 No:   
     for key in adict.keys(): ...
     if not adict.has_key(key): ...
@@ -117,7 +117,7 @@ Each portion must fit on one line: true-expression, if-expression, else-expressi
 ### II.12. Default Argument Values
 Do not use mutable objects as default values in the function or method definition.<br/>
 Yes:
-```
+```python
     def foo(a, b=None):
         if b is None:
             b = []
@@ -125,19 +125,19 @@ Yes:
         ...
 ```
 No:
-```
+```python
     def foo(a, b=[]):
         ...
     def foo(a, b: Squence = {}):
         ...
-    def foo(a, b=time.time()): 
+    def foo(a, b=time.time()):
         ...
 ```
 
 ### II.13. Properties
 Use properties in new code to access or set data where you would normally have used simple, lightweight accessor or setter methods
-Yes: 
-```
+Yes:
+```python
      import math
      class Square:
          """A square with two properties: a writable area and a read-only perimeter.
@@ -189,31 +189,31 @@ Use the “implicit” false if possible. But you should keep in mind:<br/>
 - For sequences (strings, lists, tuples), use the fact that empty sequences are false, so `if seq:` and `if not seq:`.
 
 Yes:
-```
+```python
     if not users:
         print('no users')
-    
+
     if foo == 0:
         self.handle_zero()
-    
+
     if i % 10 == 0:
         self.handle_multiple_of_ten()
-    
+
     def f(x=None):
         if x is None:
             x = []         
 ```
 No:
-```
+```python
     if len(users) == 0:
         print('no users')
-    
+
     if foo is not None and not foo:
         self.handle_zero()
-    
+
     if not i % 10:
         self.handle_multiple_of_ten()
-    
+
     def f(x=None):
         x = x or []
 ```
@@ -221,7 +221,7 @@ No:
 ### II.15. Deprecated Language Features
 Use string methods instead of the `string` module where possible. Use function call syntax instead of `apply`. Use list comprehensions and `for` loops instead of `filter` and `map` when the function argument would have been an inlined lambda anyway. Use `for` loops instead of `reduce`.
 Yes:
-```
+```python
      words = foo.split(':')
 
      [x[1] for x in my_list if x[2] == 5]
@@ -230,8 +230,8 @@ Yes:
 
      fn(*args, **kwargs)
 ```
-No: 
-```
+No:
+```python
      words = string.split(foo, ':')
 
      map(lambda x: x[1], filter(lambda x: x[2] == 5, my_list))
@@ -241,7 +241,7 @@ No:
 
 ### II.16. Lexical Scoping
 A nested Python function can refer to variables defined in enclosing functions, but cannot assign to them. Variable bindings are resolved using lexical scoping, that is, based on the static program text. Any assignment to a name in a block will cause Python to treat all references to that name as a local variable, even if the use precedes the assignment. If a global declaration occurs, the name is treated as a global variable.
-```
+```python
 def get_adder(summand1):
     """Returns a function that adds numbers to a given number."""
     def adder(summand2):
@@ -250,22 +250,22 @@ def get_adder(summand1):
     return adder
 ```
 
-### II.17. Function and Method Decorators 
+### II.17. Function and Method Decorators
 Decorators a.k.a the `@` notation. One common decorator is `@property`, used for converting ordinary methods into dynamically computed attributes. However, the decorator syntax allows for user-defined decorators as well. Specifically, for some function `my_decorator`, this:
-```
+```python
 class C:
     @my_decorator
     def method(self):
         # method body ...
 ```
 is equivalent to:
-```
+```python
 class C:
     def method(self):
         # method body ...
     method = my_decorator(method)
 ```
-Note: 
+Note:
 - Avoid external dependencies in the decorator itself (e.g. don't rely on files, sockets, database connections)
 - Never use `staticmethod` unless forced to in order to integrate with an API defined in an existing library. Write a module level function instead.
 - Use `classmethod` only when writing a named constructor or a class-specific routine that modifies necessary global state such as a process-wide cache.
@@ -282,7 +282,7 @@ Avoid these features
 
 ### II.20. Modern Python: Python 3 and from __future__ imports
 Use of `from __future__ import` statements is encouraged. All new code should contain the following and existing code should be updated to be compatible when possible:
-```
+```python
 from __future__ import absolute_import
 from __future__ import division
 from __future__ import print_function
@@ -290,7 +290,7 @@ from __future__ import print_function
 
 ### II.21. Type Annotated Code
 Type annotations (or “type hints”) are for function or method arguments and return values:
-```
+```python
 def func(a: int) -> List[int]:
 ```
 You can also declare the type of a variable using similar PEP-526 syntax:
@@ -298,16 +298,16 @@ You can also declare the type of a variable using similar PEP-526 syntax:
 a: SomeType = some_func()
 ```
 Or by using a type comment in code that must support legacy Python versions.
-```
+```python
 a = some_func()  # type: SomeType
 ```
 
 ## III. Python Style Rules
 ### III.1. Semicolons
 Do not terminate your lines with semicolons, and do not use semicolons to put two statements on the same line.
-```
+```python
     print('semicolons')    #YES
-    
+
     print('semicolons');   #NO
 ```
 
@@ -317,10 +317,10 @@ Maximum line length is 80 characters.
 Explicit exceptions to the 80 character limit:
 - Long import statements.
 - URLs, pathnames, or long flags in comments.
-- Long string module level constants not containing whitespace that would be inconvenient to split across lines such as URLs or pathnames. 
+- Long string module level constants not containing whitespace that would be inconvenient to split across lines such as URLs or pathnames.
 
 When a literal string won’t fit on a single line, use parentheses for implicit line joining.
-```
+```python
 x = ('This will build a very long long '
      'long long long long long long string')
 ```
@@ -329,7 +329,7 @@ x = ('This will build a very long long '
 Use parentheses sparingly.
 
 It is fine, though not required, to use parentheses around tuples. Do not use them in return statements or conditional statements unless using parentheses for implied line continuation or to indicate a tuple.
-```
+```python
 Yes: if foo:
          bar()
      while x:
@@ -358,20 +358,20 @@ Indent your code blocks with 4 spaces. Never use tabs or mix tabs and spaces.
 
 ### III.5. Blank Lines
 Two blank lines between top-level definitions, be they function or class definitions. One blank line between method definitions and between the `class` line and the first method. No blank line following a `def` line. Use single blank lines as you judge appropriate within functions or methods.
-```
+```python
 def function1():
     ...
-    
+
 
 def function2():
     ...
 ```
-```
+```python
 def class():
 
     def function1():
     ...
-    
+
     def function2():
     ...
 ```
@@ -380,49 +380,48 @@ def class():
 Follow standard typographic rules for the use of spaces around punctuation.
 
 - No whitespace inside parentheses, brackets or braces.
-```
+```python
 Yes: spam(ham[1], {eggs: 2}, [])
 ```
-```
+```python
 No:  spam( ham[ 1 ], { eggs: 2 }, [ ] )
 ```
 - No whitespace before a comma, semicolon, or colon. Do use whitespace after a comma, semicolon, or colon, except at the end of the line.
-```
+```python
 Yes: if x == 4:
          print(x, y)
      x, y = y, x
 ```
-```
+```python
 No:  if x == 4 :
          print(x , y)
      x , y = y , x
 ```
 - No whitespace before the open paren/bracket that starts an argument list, indexing or slicing.
-```
+```python
 Yes: spam(1)
 Yes: dict['key'] = list[index]
 ```
-```
+```python
 No:  spam (1)
 No:  dict ['key'] = list [index]
 ```
 - Surround binary operators with a single space on either side for assignment (`=`), comparisons (`==, <, >, !=, <>, <=, >=, in, not in, is, is not`), and Booleans (`and, or, not`). Use your better judgment for the insertion of spaces around arithmetic operators (`+, -, *, /, //, %, **, @`).
-```
+```python
 Yes: x == 1
-
 No:  x<1
 ```
 - Never use spaces around `=` when passing keyword arguments or defining a default parameter value, with one exception: when a type annotation is present, do use spaces around the `=` for the default parameter value.
-```
+```python
 Yes: def complex(real, imag=0.0): return Magic(r=real, i=imag)
 Yes: def complex(real, imag: float = 0.0): return Magic(r=real, i=imag)
 ```
-```
+```python
 No:  def complex(real, imag = 0.0): return Magic(r = real, i = imag)
 No:  def complex(real, imag: float=0.0): return Magic(r = real, i = imag)
 ```
 - Don’t use spaces to vertically align tokens on consecutive lines, since it becomes a maintenance burden (applies to `:`, `#`, `=`, etc.):
-```
+```python
 Yes:
   foo = 1000  # comment
   long_name = 2  # comment that should not be aligned
@@ -432,7 +431,7 @@ Yes:
       'long_name': 2,
   }
 ```
-```
+```python
 No:
   foo       = 1000  # comment
   long_name = 2     # comment that should not be aligned
@@ -456,7 +455,7 @@ Python uses docstrings to document code. A docstring is a string that is the fir
 Every file should contain license boilerplate. Choose the appropriate boilerplate for the license used by the project (for example, Apache 2.0, BSD, LGPL, GPL)
 
 Files should start with a docstring describing the contents and usage of the module.
-```
+```python
 """A one line summary of the module or program, terminated by a period.
 
 Leave one blank line.  The rest of this docstring should contain an
@@ -480,14 +479,14 @@ Certain aspects of a function should be documented in special sections, listed b
 
 - Args:<br/>
     List each parameter by name. A description should follow the name, and be separated by a colon followed by either a space or newline. If the description is too long to fit on a single 80-character line, use a hanging indent of 2 or 4 spaces more than the parameter name (be consistent with the rest of the docstrings in the file). The description should include required type(s) if the code does not contain a corresponding type annotation. If a function accepts `*foo` (variable length argument lists) and/or `**bar` (arbitrary keyword arguments), they should be listed as `*foo` and `**bar`.
-    
+
 - Returns: (or Yields: for generators)<br/>
     Describe the type and semantics of the return value. If the function only returns None, this section is not required. It may also be omitted if the docstring starts with Returns or Yields (e.g. `"""Returns row from Bigtable as a tuple of strings."""`) and the opening sentence is sufficient to describe return value.
-    
-- Raises:<br/>
-    List all exceptions that are relevant to the interface followed by a description. Use a similar exception name + colon + space or newline and hanging indent style as described in Args:. You should not document exceptions that get raised if the API specified in the docstring is violated (because this would paradoxically make behavior under violation of the API part of the API). 
 
-```
+- Raises:<br/>
+    List all exceptions that are relevant to the interface followed by a description. Use a similar exception name + colon + space or newline and hanging indent style as described in Args:. You should not document exceptions that get raised if the API specified in the docstring is violated (because this would paradoxically make behavior under violation of the API part of the API).
+
+```python
 def fetch_smalltable_rows(table_handle: smalltable.Table,
                           keys: Sequence[Union[bytes, str]],
                           require_all_keys: bool = False,
@@ -523,7 +522,7 @@ def fetch_smalltable_rows(table_handle: smalltable.Table,
 ```
 ### III.8.4 Classes
 Classes should have a docstring below the class definition describing the class. If your class has public attributes, they should be documented here in an `Attributes` section and follow the same formatting as a function’s `Args` section.
-```
+```python
 class SampleClass:
     """Summary of class here.
 
@@ -546,7 +545,7 @@ class SampleClass:
 
 ### III.8.5 Block and Inline Comments
 The final place to have comments is in tricky parts of the code. If you’re going to have to explain it at the next code review, you should comment it now. Complicated operations get a few lines of comments before the operations commence. Non-obvious ones get comments at the end of the line.
-```
+```bash
 # We use a weighted dictionary search to find out where i is in
 # the array.  We extrapolate position based on the largest num
 # in the array and the array size and then do binary search to
@@ -557,7 +556,7 @@ if i & (i-1) == 0:  # True if i is 0 or a power of 2.
 To improve legibility, these comments should start at least 2 spaces away from the code with the comment character #, followed by at least one space before the text of the comment itself.
 
 On the other hand, never describe the code. Assume the person reading the code knows Python (though not what you’re trying to do) better than you do.
-```
+```bash
 # BAD COMMENT: Now go through the b array and make sure whenever i occurs
 # the next element is i+1
 ```
@@ -565,7 +564,7 @@ On the other hand, never describe the code. Assume the person reading the code k
 
 ### III.9 Classes
 Classes need not explicitly inherit from `object` (unless for compatibility with Python 2).
-```
+```python
 Modern:
      class SampleClass:
          pass
@@ -577,7 +576,7 @@ Modern:
              pass
 
 ```
-```
+```python
 Ancient:
     class SampleClass(object):
         pass
@@ -590,7 +589,7 @@ Ancient:
 ```
 ### III.10 Strings
 Use the `format` method or the `%` operator for formatting strings, even when the parameters are all strings. Use your best judgment to decide between `+` and `%` (or `format`) though.
-```
+```bash
 Yes: x = a + b
      x = '%s, %s!' % (imperative, expletive)
      x = '{}, {}'.format(first, second)
@@ -598,34 +597,34 @@ Yes: x = a + b
      x = 'name: {}; score: {}'.format(name, n)
      x = f'name: {name}; score: {n}'  # Python 3.6+
 ```
-```
+```bash
 No: x = '%s%s' % (a, b)  # use + in this case
     x = '{}{}'.format(a, b)  # use + in this case
     x = first + ', ' + second
     x = 'name: ' + name + '; score: ' + str(n)
 ```
 Avoid using the `+` and `+=` operators to accumulate a string within a loop. Since strings are immutable, this creates unnecessary temporary objects and results in quadratic rather than linear running time. Instead, add each substring to a list and `''.join` the list after the loop terminates (or, write each substring to an `io.BytesIO` buffer).
-```
+```python
 Yes: items = ['<table>']
      for last_name, first_name in employee_list:
          items.append('<tr><td>%s, %s</td></tr>' % (last_name, first_name))
      items.append('</table>')
      employee_table = ''.join(items)
 ```
-```
+```python
 No: employee_table = '<table>'
     for last_name, first_name in employee_list:
         employee_table += '<tr><td>%s, %s</td></tr>' % (last_name, first_name)
     employee_table += '</table>'
 ```
 Be consistent with your choice of string quote character within a file. Pick `'` or `"` and stick with it. It is okay to use the other quote character on a string to avoid the need to `\\` escape within the string.
-```
+```python
 Yes:
   Python('Why are you hiding your eyes?')
   Gollum("I'm scared of lint errors.")
   Narrator('"Good!" thought a happy Python reviewer.')
 ```
-```
+```python
 No:
   Python("Why are you hiding your eyes?")
   Gollum('The lint. It burns. It burns us.')
@@ -645,7 +644,7 @@ Furthermore, while files and sockets are automatically closed when the file obje
 - Unexpected references to the file, e.g. in globals or exception tracebacks, may keep it around longer than intended.
 
 The preferred way to manage files is using the with statement:
-```
+```python
 with open("hello.txt") as hello_file:
     for line in hello_file:
         print(line)
@@ -657,48 +656,48 @@ Use `TODO` comments for code that is temporary, a short-term solution, or good-e
 A `TODO` comment begins with the string `TODO` in all caps and a parenthesized name, e-mail address, or other identifier of the person or issue with the best context about the problem. This is followed by an explanation of what there is to do.
 
 The purpose is to have a consistent `TODO` format that can be searched to find out how to get more details. A `TODO` is not a commitment that the person referenced will fix the problem. Thus when you create a `TODO`, it is almost always your name that is given.
-```
+```python
 # TODO(kl@gmail.com): Use a "*" here for string repetition.
 # TODO(Zeke) Change this to use relations.
 ```
 
 ### III.13 Imports formatting
 Imports should be on separate lines; there are exceptions for typing imports.
-```
+```python
 Yes: import os
      import sys
      from typing import Mapping, Sequence
 ```
-```
+```python
 No:  import os, sys
 ```
 
 Imports are always put at the top of the file, just after any module comments and docstrings and before module globals and constants. Imports should be grouped from most generic to least generic:
 - Python future import statements. For example:
-```
+```python
 from __future__ import absolute_import
 from __future__ import division
 from __future__ import print_function
 ```
 - Python standard library imports. For example:
-```
+```python
 import sys
 ```
 - third-party module or package imports. For example:
-```
+```python
 import tensorflow as tf
 ```
 - Code repository sub-package imports. For example:
-```
+```python
 from otherproject.ai import mind
 ```
 - Deprecated: application-specific imports that are part of the same top level sub-package as this file. For example:
-```
+```python
 from myproject.backend.hgwells import time_machine
 ```
 
 Within each grouping, imports should be sorted lexicographically, ignoring case, according to each module’s full package path (the path in from path import ...). Code may optionally place a blank line between import sections.
-```
+```python
 import collections
 import queue
 import sys
@@ -769,7 +768,7 @@ Python filenames must have a `.py` extension and must not contain dashes (`-`). 
 In Python, `pydoc` as well as unit tests require modules to be importable. If a file is meant to be used as an executable, its main functionality should be in a `main()` function, and your code should always check `if __name__ == '__main__'` before executing your main program, so that it is not executed when the module is imported.
 
 When using __absl__, use `app.run`:
-```
+```python
 from absl import app
 ...
 
@@ -781,7 +780,7 @@ if __name__ == '__main__':
     app.run(main)
 ```
 Otherwise, use:
-```
+```python
 def main():
     ...
 
@@ -809,7 +808,7 @@ Be not required to annotate all the functions in a module. Unless:
 Try to follow the existing indentation rules.
 
 After annotating, many function signatures will become “one parameter per line”.
-```
+```python
 def my_method(self,
               first_var: int,
               second_var: Foo,
@@ -818,7 +817,7 @@ def my_method(self,
 ```
 #### III.19.3 Forward Declarations
 If you need to use a class name from the same module that is not yet defined – for example, if you need the class inside the class declaration, or if you use a class that is defined below – use a string for the class name.
-```
+```python
 class MyClass:
 
   def __init__(self,
@@ -826,26 +825,26 @@ class MyClass:
 ```
 #### III.19.4 Default Values
 Use spaces around the `=` only for arguments that have both a type annotation and a default value.
-```
+```python
 Yes:
 def func(a: int = 0) -> int:
   ...
 ```
-```
+```python
 No:
 def func(a:int=0) -> int:
   ...
 ```
 #### III.19.5 NoneType
 In the Python type system, `NoneType` is a “first class” type, and for typing purposes, `None` is an alias for `NoneType`. If an argument can be `None`, it has to be declared! You can use `Union`, but if there is only one other type, use `Optional`.
-```
+```python
 Yes:
 def func(a: Optional[Text], b: Optional[Text] = None) -> Text:
   ...
 def multiple_nullable_union(a: Union[None, Text, int]) -> Text
   ...
 ```
-```
+```python
 No:
 def nullable_union(a: Union[None, Text]) -> Text:
   ...
@@ -861,24 +860,24 @@ If an internal variable has a type that is hard or impossible to infer, you can 
 
 Type Comments:
 Use a `# type:` comment on the end of the line
-```
+```python
 a = SomeUndecoratedFunction()  # type: Foo
 ```
 Annotated Assignments
 Use a colon and type between the variable name and value, as with function arguments.
-```
+```python
 a: Foo = SomeUndecoratedFunction()
 ```
 #### III.19.9 Tuples vs Lists
 Typed lists can only contain objects of a single type. Typed tuples can either have a single repeated type or a set number of elements with different types. The latter is commonly used as the return type from a function.
-```
+```python
 a = [1, 2, 3]  # type: List[int]
 b = (1, 2, 3)  # type: Tuple[int, ...]
 c = (1, "2", 3.5)  # type: Tuple[int, Text, float]
 ```
 #### III.19.10 TypeVars
 The Python type system has generics. The factory function TypeVar is a common way to use them.
-```
+```python
 from typing import List, TypeVar
 T = TypeVar("T")
 ...
@@ -891,7 +890,7 @@ The proper type for annotating strings depends on what versions of Python the co
 For Python 3 only code, prefer to use `str`. `Text` is also acceptable. Be consistent in using one or the other.
 #### III.19.12 Imports For Typing
 For classes from the `typing` module, always import the class itself. You are explicitly allowed to import multiple specific classes on one line from the `typing` module. Ex:
-```
+```python
 from typing import Any, Dict, Optional
 ```
 ## IV. Parting Words
