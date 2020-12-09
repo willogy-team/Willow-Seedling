@@ -45,6 +45,6 @@
 | ![](http://latex.codecogs.com/svg.latex?\bold{e}_t) | eligibility trace vector at ![](http://latex.codecogs.com/svg.latex?t) |
 |||
 | ![](http://latex.codecogs.com/svg.latex?\gamma) | discount-rate parameter |
-| ![](http://latex.codecogs.com/svg.latex?\epsilon) | probability of random action in ![](http://latex.codecogs.com/svg.latex?\epsilon)-greedy policy |
+| ![](http://latex.codecogs.com/svg.latex?\varepsilon) | probability of random action in ![](http://latex.codecogs.com/svg.latex?\varepsilon)-greedy policy |
 | ![](http://latex.codecogs.com/svg.latex?\alpha,\beta) | step-size parameters |
 | ![](http://latex.codecogs.com/svg.latex?\lambda) | decay-rate parameter for eligibitity traces|
