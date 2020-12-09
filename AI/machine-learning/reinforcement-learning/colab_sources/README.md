@@ -20,3 +20,18 @@
 ## Week 2
 
 - [practice](practce_vi.ipynb)
+
+## Week 3
+
+
+## Week 4
+
+
+## Week 5
+
+
+## Week 6
+
+
+# References
+- Coursera: Practical Reinforcement Learning [link](https://www.coursera.org/learn/practical-rl)
