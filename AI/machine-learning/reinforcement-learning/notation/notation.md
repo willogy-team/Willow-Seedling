@@ -41,7 +41,7 @@
 | ![](http://latex.codecogs.com/svg.latex?\bold{w}^{\top}\bold{x}) | inner product of vectors, ![](http://latex.codecogs.com/svg.latex?\bold{w}^{\top}\bold{x}=\sum_iw_ix_i); e.g., ![](http://latex.codecogs.com/svg.latex?\hat{v}(s,\bold{w})=\bold{w}^{\top}\bold{x}(s))| 
 | ![](http://latex.codecogs.com/svg.latex?\delta_t) | temporal-difference error at ![](http://latex.codecogs.com/svg.latex?t) (a random variable, even though not upper case) |
 | ![](http://latex.codecogs.com/svg.latex?E_t(s)) | eligibility trace for state ![](http://latex.codecogs.com/svg.latex?s) at ![](http://latex.codecogs.com/svg.latex?t) |
-| ![](http://latex.codecogs.com/svg.latex?E_t(s,a)) | eligibility trace for a state-action pair |
+| ![](http://latex.codecogs.com/svg.latex?E_t{(s,a)}) | eligibility trace for a state-action pair |
 | ![](http://latex.codecogs.com/svg.latex?\bold{e}_t) | eligibility trace vector at ![](http://latex.codecogs.com/svg.latex?t) |
 |||
 | ![](http://latex.codecogs.com/svg.latex?\gamma) | discount-rate parameter |
