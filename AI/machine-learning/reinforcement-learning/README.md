@@ -8,10 +8,10 @@
 | **Status**       | In Progress |
 
 # Index
-- Introduction(#introduction)
-- Motivation(#motivation)
-- Muti-arm Bandits(#muti-arm-bandits)
-- References(#references)
+- [Introduction](#introduction)
+- [Motivation](#motivation)
+- [Multiarm Bandits](#multiarm-bandits)
+- [References](#references)
 
 ## Introduction
 
@@ -50,7 +50,14 @@ Two independent main threads of RL are **trial-and-error learning** and **optima
 - **Trial-and-error learning** stated in the psychology of animal learning.
 - **Optimal control** using value functions and dynamic programming.
 
-## Multi-arm Bandit
+## Multiarm Bandits
+
+### An n-Armed bandit
+
+RL uses training information that **evaluates** the actions taken rather than **instructs** by giving correct actions. You are faced repeatedly with a choice among ![](https://latex.codecogs.com/svg.latex?n) different actions. The original form is one-armed bandit, except that is has ![](https://latex.codecogs.com/svg.latex?n) levers instead of one. Your objective is to maximize the expected total reward over some time playing.
+
+### Action-Value Methods
+We denote the true value of action ![](https://latex.codecogs.com/svg.latex?a) as ![](https://latex.codecogs.com/svg.latex?q(a)), and the estimated value on the ![](https://latex.codecogs.com/svg.latex?t)th time step ![](https://latex.codecogs.com/svg.latex?Q_t(a)).
 
 ## References
 - Practical Reinforcement Learning course, [link](https://www.coursera.org/learn/practical-rl)
