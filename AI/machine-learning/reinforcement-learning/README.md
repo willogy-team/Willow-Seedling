@@ -10,14 +10,13 @@
 # Index
 - Introduction(#introduction)
 - Motivation(#motivation)
--
 - References(#references)
 
 ## Introduction
 
 Reinforcement learning (RL) is an area of machine learning concerned with how software agents ought to take actions in an environment in order to maximize the notion of cumulative reward. Reinforcement learning is one of three basic machine learning paradigms, alongside supervised learning and unsupervised learning.
 
-# Paradigms comparison
+### Paradigms comparison
 
 |Paradigms | Reinforment learning | Supervised learning | Unsupervised learning |
 |:----------| :----------|:----------|:----------|
@@ -25,6 +24,8 @@ Reinforcement learning (RL) is an area of machine learning concerned with how so
 |Need feedback| Do on agent's own actions | Do correct answers | No feedback required|
 |Affect the input data |Agent can do| Do not | Do not |
 
+### Notation
+Directing to [Notation](notation.md)
 ## Motivation
 The RL problem.
 ### Elements of Rl
