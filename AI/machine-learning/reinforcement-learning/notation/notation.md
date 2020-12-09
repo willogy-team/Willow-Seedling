@@ -1,5 +1,5 @@
 
-#Notation for Reinforcement Learning
+# Notation for Reinforcement Learning
 
 - Capital letters are used for random variables and major algorithm variables.
 - Lower case letters are used for the values of random variables and for scalar functions.
