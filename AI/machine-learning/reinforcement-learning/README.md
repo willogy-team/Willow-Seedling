@@ -10,7 +10,9 @@
 # Index
 - [Introduction](#introduction)
 - [Motivation](#motivation)
-- [Multiarm Bandits](#multiarm-bandits)
+- [Tabular Solution Methods](#tabular-solution-methods)
+- [Approximate Solution Methods](#approximate-solution-methods)
+- [Frontiers](#frontiers)
 - [References](#references)
 
 ## Introduction
@@ -33,7 +35,8 @@ Directing to [Notation](notation/notation.md)
 
 One of the challenges in RL is the trade-off between **exploration** and **exploitation**. The agent has to **exploit** what it already knows in order to obtain reward, but it also **explore** in order to make better action selections in the future. The dilemma is that neither exploration nor exploitation can be pursued exclusively without failing at the task.
 
-All RL agents have explicit goals, can sense aspects of their environments, and can choose actions to influence their uncertain environment. 
+All RL agents have explicit goals, can sense aspects of their environments, and can choose actions to influence their uncertain environment that even if all the details of complete agent can not yet filled in.
+
 
 ### Elements of RL
 
@@ -50,14 +53,14 @@ Two independent main threads of RL are **trial-and-error learning** and **optima
 - **Trial-and-error learning** stated in the psychology of animal learning.
 - **Optimal control** using value functions and dynamic programming.
 
-## Multiarm Bandits
+## Tabular Solution Methods
+Direct to [Tabular Solution Methods](tabular-solution-methods)
 
-### An n-Armed bandit
+## Approximate Solution Methods
+Direct to [Approximate Solution Methods](approximate-solution-methods)
 
-RL uses training information that **evaluates** the actions taken rather than **instructs** by giving correct actions. You are faced repeatedly with a choice among ![](https://latex.codecogs.com/svg.latex?n) different actions. The original form is one-armed bandit, except that is has ![](https://latex.codecogs.com/svg.latex?n) levers instead of one. Your objective is to maximize the expected total reward over some time playing.
-
-### Action-Value Methods
-We denote the true value of action ![](https://latex.codecogs.com/svg.latex?a) as ![](https://latex.codecogs.com/svg.latex?q(a)), and the estimated value on the ![](https://latex.codecogs.com/svg.latex?t)th time step ![](https://latex.codecogs.com/svg.latex?Q_t(a)).
+## Frontiers
+Direct to [Frontiers](frontiers)
 
 ## References
 - Practical Reinforcement Learning course, [link](https://www.coursera.org/learn/practical-rl)
