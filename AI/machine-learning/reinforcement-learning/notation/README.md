@@ -7,12 +7,12 @@
 
 | Notation | Meaning|
 | :-- | :---------------------------------|
-| ![](http://latex.codecogs.com/svg.latex?s)| state |
+| ![s](http://latex.codecogs.com/svg.latex?s)| state |
 | ![a](http://latex.codecogs.com/svg.latex?a)  | action |
-| ![S](http://latex.codecogs.com/svg.latex?S)  | set of all nonterminal states|
-| ![S^+](http://latex.codecogs.com/svg.latex?S^+)  | set of all states, including the terminal state|
-| ![A(s)](http://latex.codecogs.com/svg.latex?A(s)) | set of actions possible in states|
-| ![R](http://latex.codecogs.com/svg.latex?R) | set of possible rewardstdiscrete time step|
+| ![S](http://latex.codecogs.com/svg.latex?\mathcal{S})  | set of all nonterminal states|
+| ![S^+](http://latex.codecogs.com/svg.latex?\mathcal{S}^+)  | set of all states, including the terminal state|
+| ![A(s)](http://latex.codecogs.com/svg.latex?\mathcal{A}(s)) | set of actions possible in states|
+| ![R](http://latex.codecogs.com/svg.latex?\mathcal{R}) | set of possible rewardstdiscrete time step|
 | | |
 | ![t](http://latex.codecogs.com/svg.latex?t)| discrete time step|
 | ![T](http://latex.codecogs.com/svg.latex?T) | final time step of an episode|
