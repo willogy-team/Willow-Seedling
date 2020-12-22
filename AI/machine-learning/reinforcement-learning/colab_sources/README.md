@@ -11,27 +11,27 @@
 - [Week 5](#week-5)
 - [Week 6](#week-6)
 
-## Week 1
+## [Week 1](week1)
 
-- [Recap Machine Learning](recap_ml.ipynb)
-- [Gym Interface](gym_interface.ipynb)
-- [Cross-entropy Method](crossentropy_method.ipynb)
+- [Recap Machine Learning](week1/recap_ml.ipynb)
+- [Gym Interface](week1/gym_interface.ipynb)
+- [Cross-entropy Method](week1/crossentropy_method.ipynb)
 
-- [Honor: Deep Cross-entropy Method](deep_crossentropy_method.ipynb)
+- [Honor: Deep Cross-entropy Method](week1/deep_crossentropy_method.ipynb)
 
-## Week 2
+## [Week 2](week2)
 
-- [practice](practce_vi.ipynb)
+- [practice](week2/practce_vi.ipynb)
 
-## Week 3
+## [Week 3](week3)
 
-- [On-policy learning and SARSA](sarsa.ipynb)
-- [Honor: Experience Replay](experience_replay.ipynb)
+- [On-policy learning and SARSA](week3/sarsa.ipynb)
+- [Honor: Experience Replay](week3/experience_replay.ipynb)
 
 
-## Week 4
-- [Approximate Q-learning: CartPole](practice_approx_qlearning_pytorch.ipynb)
-- [Honor: DQN: Atari Breakout](dqn_atari_pytorch.ipynb)
+## [Week 4](week4)
+- [Approximate Q-learning: CartPole](week4/practice_approx_qlearning_pytorch.ipynb)
+- [Honor: DQN: Atari Breakout](week4/dqn_atari_pytorch.ipynb)
 
 ## Week 5
 
