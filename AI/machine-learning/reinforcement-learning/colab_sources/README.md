@@ -21,7 +21,7 @@
 
 ## [Week 2](week2)
 
-- [practice](week2/practce_vi.ipynb)
+- [practice](week2/practice_vi.ipynb)
 
 ## [Week 3](week3)
 
