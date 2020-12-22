@@ -30,7 +30,8 @@
 
 
 ## Week 4
-
+- [Approximate Q-learning: CartPole](practice_approx_qlearning_pytorch.ipynb)
+- [Honor: DQN: Atari Breakout](dqn_atari_pytorch.ipynb)
 
 ## Week 5
 
