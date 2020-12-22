@@ -54,9 +54,11 @@ Two independent main threads of RL are **trial-and-error learning** and **optima
 - **Optimal control** using value functions and dynamic programming.
 
 ## Tabular Solution Methods
+The simplest forms in which the state and action spaces are small enough for the approximate action-value function to be represented as an array, or _table_. In this case, the methods can often find exact solutions, that is the optimal value function and the optimal policy.
 Direct to [Tabular Solution Methods](tabular-solution-methods)
 
 ## Approximate Solution Methods
+This contracts with the tabular solution methods, the approximate solution methods only find approximate solutions. But which in return can be applied effectively to much larger problems.
 Direct to [Approximate Solution Methods](approximate-solution-methods)
 
 ## Frontiers
