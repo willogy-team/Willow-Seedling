@@ -47,11 +47,30 @@ One naive way to estimate this is the _sample-average method_, by averaging the 
 If _N<sub>t</sub>(a)_ = 0 , we define default value as _Q<sub>1</sub>(a)_ = 0.\
 If _N<sub>t</sub>(a)_ &#8594; &infin;, _Q_<sub>t</sub>(a) &#8594; _q(a)_ (by  the  law  of  large  numbers)
 
-This _greedy_ action selection method can be written as
+The simplest action selection rule is to select the action with highest estimated action value, to select at step _t_ one of the greedy action, A<sup>\*</sup><sub>t</sub>, for which Q<sub>t</sub>(A<sup>\*</sup><sub>t</sub>) = max<sub>a</sub> Q<sub>t</sub>(a). This _greedy_ action selection method can be written as
 
 ![](http://latex.codecogs.com/svg.latex?A_t=argmax_aQ_t(a))
-  
-## Finite Markov Decision Processes
+
+A simple alternative is to behave greedily most of the time, but every once in a while, with small probability &epsilon;, instead to select randomly from amongst all the actions with equal probability independently of the action-value estimates. The calling are _&epsilon;-greedy_ methods.
+
+### Incremental Implementation
+The estimate of the value of action _a_ is not really necessary to compute it again. Easily solving it out with incremental update formulas for computing averages with small, constant computation required to process each new reward. For some action, let _Q<sub>k</sub>_ denote the estimate for its _k_th reward, that is, the average of its first _k - 1_ rewards.
+
+![](http://latex.codecogs.com/svg.latex?Q_{k+1}=\frac{1}{k}\sum_{i=1}^{k}R_i=Q_k+\frac{1}{k}(R_k-Q_k)) 
+
+The update rule is 
+
+![](http://latex.codecogs.com/svg.latex?NewEstimater{\leftarrow}OldEstimate+StepSize(Target-OldEstimate).)
+
+In processing the _k_-th reward for action _a_, that method uses a step-size parameter of <sup>1</sup>&frasl;<sub>k</sub>. We denote it by the symbol _&alpha;_ or, more generally, by _&alpha;<sub>t</sub>(a)_.
+
+![](http://latex.codecogs.com/svg.latex?Q_{k+1}=Q_k+\alpha(R_k-Q_k)) 
+
+### Tracking a Nonstationary Problem
+The step-size parameter _&alpha;_ &in; (0, 1]<sup>1</sup> is constant. The results in _Q<sub>k+1</sub> being a weighted average of past rewards and the initial estimate _Q<sub>1</sub>_:
+
+![](http://latex.codecogs.com/svg.latex?Q_{k+1}=Q_k+\alpha(R_k-Q_k)=(1-\alpha)^kQ_1+\sum_{i=1}^k\alpha(1-\alpha)^{k-i}R_i) 
+## Finite Markov Decision Processes 
 
 ## Dynamic Programming
 
