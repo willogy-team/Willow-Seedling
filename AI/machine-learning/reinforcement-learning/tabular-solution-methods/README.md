@@ -60,16 +60,21 @@ The estimate of the value of action _a_ is not really necessary to compute it ag
 
 The update rule is 
 
-![](http://latex.codecogs.com/svg.latex?NewEstimater{\leftarrow}OldEstimate+StepSize(Target-OldEstimate).)
+![](http://latex.codecogs.com/svg.latex?NewEstimate{\leftarrow}OldEstimate+StepSize(Target-OldEstimate).)
 
 In processing the _k_-th reward for action _a_, that method uses a step-size parameter of <sup>1</sup>&frasl;<sub>k</sub>. We denote it by the symbol _&alpha;_ or, more generally, by _&alpha;<sub>t</sub>(a)_.
 
 ![](http://latex.codecogs.com/svg.latex?Q_{k+1}=Q_k+\alpha(R_k-Q_k)) 
 
 ### Tracking a Nonstationary Problem
-The step-size parameter _&alpha;_ &in; (0, 1]<sup>1</sup> is constant. The results in _Q<sub>k+1</sub> being a weighted average of past rewards and the initial estimate _Q<sub>1</sub>_:
+The step-size parameter _&alpha;_ &in; (0, 1]<sup>1</sup> is constant. The results in _Q<sub>k+1</sub>_ being a weighted average of past rewards and the initial estimate _Q<sub>1</sub>_:
 
-![](http://latex.codecogs.com/svg.latex?Q_{k+1}=Q_k+\alpha(R_k-Q_k)=(1-\alpha)^kQ_1+\sum_{i=1}^k\alpha(1-\alpha)^{k-i}R_i) 
+![](http://latex.codecogs.com/svg.latex?Q_{k+1}=Q_k+\alpha(R_k-Q_k)=(1-\alpha)^kQ_1+\sum_{i=1}^k\alpha(1-\alpha)^{k-i}R_i)
+
+We call this a weighted average because the sum of the weights is ![](http://latex.codecogs.com/svg.latex?(1-\alpha)^k+\sum_{i=1}^k\alpha(1-\alpha)^{k-i}=1). The weight decays exponentially according to the exponent on 1 - &alpha;, this is sometimes called an _exponential_, _recency-weighted average_.
+
+Sometimes it is convenient to vary the step-size parameter from step to step. Let _&alpha;<sub>k</sub>(a)_ denote the step-size parameter used to process the reward received after the _k_-th selection of action _a_. The choice _&alpha;<sub>k</sub>(a) = <sup>1</sup>&frasl;<sub>k</sub>_ results in the sample-average method, which is guaranteed to converge to the true action values by the law of large numbers. But of course convergence is not guaranteed for all choices of the sequence _{&alpha;<sub>k</sub>(a)}_. Although these parameters meet the conditions often converge very slowly or need considerable tuning in order to obtain a satisfactory convergence rate. Therefore, they are often used in theoretical work, which are seldom used in applications and empirical research.
+
 ## Finite Markov Decision Processes 
 
 ## Dynamic Programming
