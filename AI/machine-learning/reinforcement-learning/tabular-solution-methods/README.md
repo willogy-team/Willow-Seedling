@@ -75,6 +75,32 @@ We call this a weighted average because the sum of the weights is ![](http://lat
 
 Sometimes it is convenient to vary the step-size parameter from step to step. Let _&alpha;<sub>k</sub>(a)_ denote the step-size parameter used to process the reward received after the _k_-th selection of action _a_. The choice _&alpha;<sub>k</sub>(a) = <sup>1</sup>&frasl;<sub>k</sub>_ results in the sample-average method, which is guaranteed to converge to the true action values by the law of large numbers. But of course convergence is not guaranteed for all choices of the sequence _{&alpha;<sub>k</sub>(a)}_. Although these parameters meet the conditions often converge very slowly or need considerable tuning in order to obtain a satisfactory convergence rate. Therefore, they are often used in theoretical work, which are seldom used in applications and empirical research.
 
+### Optimistic Initial Values
+All the above methods are dependent to some extent on the initial action-value estimates, _Q<sub>1</sub>(a)_. Statistically, these methods are _biased_ by their initial estimates.
+
+In pratice, this kind of bias is usually not a problem, and can sometimes be very helpful. The downside is that the initial estimates become, in effect, a set of paremeters that must be picked by the user, if only to set them all to zero. The upside is that they provide an easy way to supply some prior knowledge about what level of rewards can be expected.
+
+This optimism encourages action-value methods to explore. Initially, the optimistic method performs worse because it explores more, but eventually it performs better because its exploration decreases with time.
+![](images/Figure2.2.png)
+
+### Upper-Confidence-Bound Action Selection
+
+Exploration is needed because the estimates of the action values are uncertain. The greedy actions are those that look best at present, but some of the other actions may really be better. &epsilon;-greedy action selection forces the non-greedy actions to be tried indiscriminately, with no preference for those that are nearly greedy or particularly uncertain. One effective way of doing this is to select actions as
+
+![](https://latex.codecogs.com/svg.latex?A_t=argmax_a[Q_t(a)+c\sqrt{\frac{lnt}{N_t(a)}}])
+
+where ln _t_ denotes the natural logarithm of _t_, and the number _c_ > 0 controls the degree of exploration. If _N<sub>t</sub>(a)_ = 0, then _a_ is considered to be a maximizing action.
+
+![](images/Figure2.3.png)
+
+The idea of this _upper confidence bound_ (_UCB_) action selection is that the square-root term is a measure of the uncertainty or variance in the estimate of _a_'s value. Each time _a_ is selected the uncertainty is presumably reduced; _N<sub>t</sub>(a)_ is incremented and, the term is descreased. Each time an action other _a_ is selected _t_ is increased, this term is increased too. The use of the natural logarithm means that the increase gets smaller over time, but is  unbounded; all actions will eventually be selected, but as time goes by it will be a longer wait.
+
+In these more advanced settings there is currently no known practicalway of utilizing the idea of UCB action selection.
+
+### Gradient Bandits
+We consider learning a numerical _preference_ H<sub>t</sub>(a) for each action _a_. The larger the preference , the more often that action is taken, but it has no interpretation in terms of reward.
+
+![](https://latex.codecogs.com/svg.latex?Pr\{A_t=a\}=\frac{e^{H_t(a)}}{\sum_{b=1}^ne^{H_t(b)}}=\pi_t(a))
 ## Finite Markov Decision Processes 
 
 ## Dynamic Programming
