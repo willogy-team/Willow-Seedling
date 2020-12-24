@@ -87,7 +87,7 @@ This optimism encourages action-value methods to explore. Initially, the optimis
 
 Exploration is needed because the estimates of the action values are uncertain. The greedy actions are those that look best at present, but some of the other actions may really be better. &epsilon;-greedy action selection forces the non-greedy actions to be tried indiscriminately, with no preference for those that are nearly greedy or particularly uncertain. One effective way of doing this is to select actions as
 
-![](https://latex.codecogs.com/svg.latex?A_t=argmax_a[Q_t(a)+c\sqrt{\frac{lnt}{N_t(a)}}])
+![](https://latex.codecogs.com/svg.latex?A_t=argmax_a\Bigg[Q_t(a)+c\sqrt{\frac{lnt}{N_t(a)}}\Bigg])
 
 where ln _t_ denotes the natural logarithm of _t_, and the number _c_ > 0 controls the degree of exploration. If _N<sub>t</sub>(a)_ = 0, then _a_ is considered to be a maximizing action.
 
@@ -98,9 +98,44 @@ The idea of this _upper confidence bound_ (_UCB_) action selection is that the s
 In these more advanced settings there is currently no known practicalway of utilizing the idea of UCB action selection.
 
 ### Gradient Bandits
-We consider learning a numerical _preference_ H<sub>t</sub>(a) for each action _a_. The larger the preference , the more often that action is taken, but it has no interpretation in terms of reward.
+We consider learning a numerical _preference_ H<sub>t</sub>(a) for each action _a_. The larger the preference, the more often that action is taken, but it has no interpretation in terms of reward.
 
-![](https://latex.codecogs.com/svg.latex?Pr\{A_t=a\}=\frac{e^{H_t(a)}}{\sum_{b=1}^ne^{H_t(b)}}=\pi_t(a))
+![](https://latex.codecogs.com/svg.latex?Pr\big\\{A_t=a\big\\}=\frac{e^{H_t(a)}}{\sum_{b=1}^ne^{H_t(b)}}=\pi_t(a))
+
+The probability of taking action _a_ at time _t_, which are determined according to a soft-max distribution. Initially, all preferences are the same so that all actions have an equal probability of being selected.
+
+There is a natural learning algorithm for this setting based on the idea of stochastic gradient ascent. On each step, after selecting the action _A<sub>t</sub>_ and receiving the reward _R<sub>t</sub>_, them are updated by:
+
+![](https://latex.codecogs.com/svg.latex?H_{t+1}(A_t)=H_t(A_t)+\alpha(R_t-\bar{R}_t)(1-\pi_t(A_t))), and\
+![](https://latex.codecogs.com/svg.latex?H_{t+1}(a)=H_t(a)-\alpha(R_t-\bar{R}_t)\pi_t(a),{\forall}a{\neq}A_t)
+
+where _&alpha;_ > 0 is a step-size parameter, and ![](https://latex.codecogs.com/svg.latex?\bar{R})<sub>t</sub> &in; &reals; is the average of all the rewards up through and including time _t_, which can be computed incrementally above. The ![](https://latex.codecogs.com/svg.latex?\bar{R})<sub>t</sub> term serves as a baseline with which the reward is compared. If the reward is higher than the baselin, then the probability of taking _A<sub>t</sub>_ in the future is increased, and else below then probability is decreased. The non-selected actions move in the opposite direction.
+
+One can gain a deeper insight into this algorithm by understanding it as a stochastic approximation to gradient ascent. Exactly, each preference _H<sub>t</sub>(a)_ would be incrementing proportional to the increment's effect on performance:
+
+![](https://latex.codecogs.com/svg.latex?H_{t+1}(a)=H_t(a)-\alpha\frac{\partial\mathbb{E}\\[R_t\\]}{{\partial}H_t(a))
+
+where the measure of performance here is the expected reward: 
+
+![](https://latex.codecogs.com/svg.latex?\mathbb{E}\\[R_t\\]=\sum_{b}\pi_t(b)q(b))
+
+Of course, it is impossible to implement gradient ascent exactly because by assumption we do not know the _q(b)_, but in fact the updates of the algorithm equally in expected value, making the algorithm an instance of stochastic gradient ascent.
+
+### Associative Search
+So far we have considered only nonassociative tasks, in which there is no need to associate different actions with different situations. However, in a general reinforcement learning task there is more than one situation, and the goal is to learn a policy: a mapping from situations to the actions that are best in those situations. To set the stage for the full problem, the simplest way in which nonassociative tasks extend to the associative setting.
+
+### Summary
+
+The simple ways of balanceing exploration and exploitation.
+- The &epsilon;-greedy methods choose randomly a small fraction of the time.
+- UCB methods choose deterministically, achieve explorationq by subtly favoring at each step the actions that have so far received fewer samples.
+- Gradient-bandit algorithms estimate not action values, but action preferences, and favor the more preferred actions in a graded, probabilistic manner using a soft-max distribution.
+- The simple expedient of initializing estimates optimistically causes even greedy methods to explore significantly.
+
+![](images/Figure2.5.png)
+
+Despite their simplicity can fairly be considered the state of the art. There are more sophisticated methods, but their complexity and assumptions make them impractical for the full RL problem that is our real focus. However, these methods are far from a fully satisfactory solution to the problem of balancing exploration and exploitation.
+
 ## Finite Markov Decision Processes 
 
 ## Dynamic Programming
