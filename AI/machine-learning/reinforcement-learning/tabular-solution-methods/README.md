@@ -19,13 +19,13 @@ Importantly, RL uses training information that _evaluates_ the actions taken rat
 |Relationship with the action taken | Depends entirely on it | Independently of it |
 | Usage | The basis of methods for function optimization, including evolutionary methods | The basis of supervised learning, as pattern classification, artificial neural networks and system identification|
 
-Simpliestly, we use the _nonassociate_ setting does not invole learning to act in more than one situation, in which most prior work involving evaluative feedback has been done, and it avoid much of the complexity of the full RL problem. Studying this case will enable us to see most clearly how evaluatiive feedback differs from, and yet can be combined with, instructive feedback.
+Simpliestly, we use the _nonassociate_ setting does not involve learning to act in more than one situation, in which most prior work involving evaluative feedback has been done, and it avoid much of the complexity of the full RL problem. Studying this case will enable us to see most clearly how evaluatiive feedback differs from, and yet can be combined with, instructive feedback.
 
 ### An n-Armed bandit
 
 You are faced repeatedly with a choice among *n* different actions. After each choice you receive a numerical reward chosen from a stationary probability distribution that depends on the action you selected. Your objective is to maximize the expected total reward over some time playing.
 
-Each action has an expected or mean reward given that action is selected, called is _value_ of that action. Assumming that you do not know the action values with certainly , although you may have estimates.
+Each action has an expected or mean reward given that action is selected, called is _value_ of that action. Assumming that you do not know the action values with certainty , although you may have estimates.
 | | Greedy action | Nongreedy action|
 |---|---|---|
 |Way to estimates of the action values | At any time step always choose one action has greatest estimated value | Choose another action|
@@ -54,13 +54,13 @@ The simplest action selection rule is to select the action with highest estimate
 A simple alternative is to behave greedily most of the time, but every once in a while, with small probability &epsilon;, instead to select randomly from amongst all the actions with equal probability independently of the action-value estimates. The calling are _&epsilon;-greedy_ methods.
 
 ### Incremental Implementation
-The estimate of the value of action _a_ is not really necessary to compute it again. Easily solving it out with incremental update formulas for computing averages with small, constant computation required to process each new reward. For some action, let _Q<sub>k</sub>_ denote the estimate for its _k_th reward, that is, the average of its first _k - 1_ rewards.
+The estimate of the value of action _a_ is not really necessary to compute it again. Easily solving it out with incremental update formulas for computing averages with small, constant computation required to process each new reward. For some action, let _Q<sub>k</sub>_ denote the estimate for its _k_-th reward, that is, the average of its first _k - 1_ rewards.
 
 ![](http://latex.codecogs.com/svg.latex?Q_{k+1}=\frac{1}{k}\sum_{i=1}^{k}R_i=Q_k+\frac{1}{k}(R_k-Q_k)) 
 
 The update rule is 
 
-![](http://latex.codecogs.com/svg.latex?NewEstimate{\leftarrow}OldEstimate+StepSize(Target-OldEstimate).)
+![](http://latex.codecogs.com/svg.latex?{NewEstimate}{\leftarrow}OldEstimate+StepSize(Target-OldEstimate))
 
 In processing the _k_-th reward for action _a_, that method uses a step-size parameter of <sup>1</sup>&frasl;<sub>k</sub>. We denote it by the symbol _&alpha;_ or, more generally, by _&alpha;<sub>t</sub>(a)_.
 
