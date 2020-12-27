@@ -138,6 +138,51 @@ Despite their simplicity can fairly be considered the state of the art. There ar
 
 ## Finite Markov Decision Processes 
 
+### The Agent-Environment Interface
+
+The RL problem is meant to be a straightforward framing of the problem of learning from interaction to achieve a goal. 
+- The learner and decision-maker is called the **agent**.
+- The thing it iteracts with, comprising everything outside the agent, is called the **environment**.
+- The agent selecting actions and the environment responding to those actions and presenting new situations to the agent.
+- The environment gives rise to numerical rewards that the agent tries to maximize over time.
+
+![](images/Figure3.1.png)
+
+Specifically, the agent and environment interact at each of a sequence of discreate time steps, _t_ = 0, 1, 2, 3,...
+- At each time step _t_,
+  - The agent receives some representation of the environment's **state**, ![](http://latex.codecogs.com/svg.latex?S_t\in\mathcal{S}), where ![](http://latex.codecogs.com/svg.latex?\mathcal{S}) is the set of possible states.
+  - Basic selects an **action**, ![](http://latex.codecogs.com/svg.latex?A_t\in\mathcal{A}(S_t)), where ![](http://latex.codecogs.com/svg.latex?\mathcal{A}(S_t)) is the set of actions avaible in state ![](http://latex.codecogs.com/svg.latex?S_t).
+- One time step later,
+  - The agent receives a numerical **reward**, ![](http://latex.codecogs.com/svg.latex?R_{t+1}\in\mathcal{R}\subset\mathbb{R}).
+  - Finds itself in a new state, ![](http://latex.codecogs.com/svg.latex?S_{t+1}).
+
+At each time step, a mapping implemented from states to probabilities of selecting each possible action by the agent what is called the agent's **policy**. It is denoted _&pi;<sub>t</sub>_ where _&pi;<sub>t</sub>_(_a_|_s_) is the probability that _A<sub>t</sub>_ = _a_ if _S<sub>t</sub>_ = _s_. RL methods specify how the agent changes its policy as a result of experience to maximize the total amount of reward it receives over the long run.
+
+The boundary between agent and environment is not often the same as the physical boundary of a robot's or animal's body. It is determined once one has selected particular states, actions, and rewards, and thus has identified a specific decision-making task of interset.
+
+The RL framework is a considerable abstraction of the problem of goal-directed learning from interaction. It proposes that whatever the details of the sensory, memory and control apparatus, and whatever objective one is trying to achieve, any problem of learning goal-directed behavior can be reduced to three signals passing back and forth between an agent and its environment:
+- One signal a.k.a an action to represent the choices made by the agent.
+- One signal a.k.a an state to represent the basis on which the choices are made.
+- One signal a.k.a an reward to define the agent's goal.
+
+### Goals and Rewards
+
+At each time step, the **reward** is a simple number, ![](http://latex.codecogs.com/svg.latex?R_t\in\mathbb{R}). The agent's **goal** is to maximize the total amount of reward it receives by cumulate reward in the long run, do not immediate reward.
+
+### Returns
+
+The (expected) **return** is the sum of the rewards that received after time step _t_ is denoted _R<sub>t+1</sub>, R<sub>t+2</sub>, R<sub>t+3</sub>,..._:
+![](http://latex.codecogs.com/svg.latex?G_t=R_{t+1}+R_{t+2}+R_{t+3}+...+R_T)
+
+where ![](http://latex.codecogs.com/svg.latex?T) is a final time step.
+- From starting to when the agent-environment interaction breaks naturally into subsequences, it is **episodes**.
+- Each episode ends in a special state is **terminal state**.
+- Tasks with episodes of this kind are called **episodic tasks**.
+
+In many cases the agent-enviromnment interaction does not break naturally into identifiable episodes, it goes on continually without limit. Thus _T_ = &infin;. 
+![](https://latex.codecogs.com/svg.latex?G_t=R_{t+1}+{\gamma}R_{t+2}+{\gamma^2}R_{t+3}+...=\sum_{k=0}^\infty\gamma^{k}R_{t+k-1}),
+
+
 ## Dynamic Programming
 
 ## Monte Carlo Methods
