@@ -226,7 +226,37 @@ Given the dynamics as specified by above, one can compute anything else one migh
 | the expected rewards for state-action pairs | ![](https://latex.codecogs.com/svg.latex?r(s,a)=\mathbb{E}\\[R_{t+1}\\|S_t=s,A_t=a\\]=\sum_{r\in\mathcal{R}}r\sum_{s'\in\mathcal{S}}p(s',r\\|s,a))|
 | the state-transition probabilities | ![](https://latex.codecogs.com/svg.latex?p(s'\\|s,a)=Pr\\{S_{t+1}=s'\\|S_t=s,A_t=a\\}=\sum_{r\in\mathcal{R}}p(s',r\\|s,a))|
 | the expected rewards for state-action-next_state triples | ![](https://latex.codecogs.com/svg.latex?r(s,a,s')=\mathbb{E}\\[R_{t+1}\\|S_t=s,A_t=a,S_{t+1}=s'\\]=\frac{\sum_{r\in\mathcal{R}}r{\space}p(s',r\\|s,a)}{p(s'\\|s,a)})|
-## Dynamic Programming
+
+### Value Functions
+Almost all RL algorithms involve estimating **value functions** - functions of states (or of state-action pairs) that estimate _how good_ it is for the agent to be in a given state (or how good it is to perform a given action in a given state). Of course the rewards the agent can expect to receive in the future depend on what actions it will take. Accordingly, value functions are defined with respect to particular policies.
+
+A policy ![](https://latex.codecogs.com/svg.latex?\pi), is a mapping from each state ![](https://latex.codecogs.com/svg.latex?s\in\mathcal{S}) and action ![](https://latex.codecogs.com/svg.latex?a\in\mathcal{A}(s)), to the probability ![](https://latex.codecogs.com/svg.latex?\pi(a|s)) of taking action ![](https://latex.codecogs.com/svg.latex?a) when in state ![](https://latex.codecogs.com/svg.latex?s). Informally the **value** of a state ![](https://latex.codecogs.com/svg.latex?s) under a policy ![](https://latex.codecogs.com/svg.latex?\pi), denoted ![](https://latex.codecogs.com/svg.latex?v_{\pi}(s)), is the expected return when starting in ![](https://latex.codecogs.com/svg.latex?s) and following ![](https://latex.codecogs.com/svg.latex?\pi) thereafter. For MDPs, we can define it formally as
+
+![](https://latex.codecogs.com/svg.latex?v_{\pi}(s)=\mathbb{E}_{\pi}\\[G_t|S_t=s\\]=\mathbb{E}_{\pi}{\Bigg[}\sum_{k=0}^{\infty}{\gamma}^{k}R_{t+k+1}{\Bigg|}S_t=s{\Bigg]})
+
+where ![](https://latex.codecogs.com/svg.latex?\mathbb{E}\\[\cdot\\]) denotes the expected value of a random variable given that agent folows policy ![](https://latex.codecogs.com/svg.latex?\pi), and ![](https://latex.codecogs.com/svg.latex?t) is any time step. Note that the value of the terminal state, if any, is always zero. The function ![](https://latex.codecogs.com/svg.latex?v_\pi) the **state-value function** for policy ![](https://latex.codecogs.com/svg.latex?\pi).
+
+The value of taking action ![](https://latex.codecogs.com/svg.latex?a) in state ![](https://latex.codecogs.com/svg.latex?s) under a policy ![](https://latex.codecogs.com/svg.latex?\pi), denoted ![](https://latex.codecogs.com/svg.latex?q_\pi(s,a)), as the expected return starting from ![](https://latex.codecogs.com/svg.latex?s), taking the action ![](https://latex.codecogs.com/svg.latex?a), and thereafter following policy ![](https://latex.codecogs.com/svg.latex?\pi):
+
+![](https://latex.codecogs.com/svg.latex?q_{\pi}(s)=\mathbb{E}_{\pi}\\[G_t|S_t=s,A_t=a\\]=\mathbb{E}_{\pi}{\Bigg[}\sum_{k=0}^{\infty}{\gamma}^{k}R_{t+k+1}{\Bigg|}S_t=s,A_t=a{\Bigg]})
+
+where ![](https://latex.codecogs.com/svg.latex?q_{\pi}) is the **action-value function** for policy ![](https://latex.codecogs.com/svg.latex?\pi).
+
+The value functions ![](https://latex.codecogs.com/svg.latex?v_{\pi}) and ![](https://latex.codecogs.com/svg.latex?q_{\pi}) can be estimated from experience. 
+
+A fundamental property of value functions used throughout RL and dynamic programming is that they satisfy particular recursive relationships. For any policy ![](https://latex.codecogs.com/svg.latex?\pi) and any state ![](https://latex.codecogs.com/svg.latex?s), the following consistency condition holds between the value of ![](https://latex.codecogs.com/svg.latex?s) and the value of its possible successor states:
+
+![](https://latex.codecogs.com/svg.latex?v_{\pi}(s)=\mathbb{E}_{\pi}{\\[}G_t|S_t=s{\\]}=\sum_{a}\pi(a|s)\sum_{s',r}p(s',r|s,a)\big[r+{\gamma}v_\pi(s')\big])
+
+where it is implicit that the actions, ![](https://latex.codecogs.com/svg.latex?a), are taken from the set ![](https://latex.codecogs.com/svg.latex?\mathcal{A}(s)), the next states, ![](https://latex.codecogs.com/svg.latex?s'), are taken from the set ![](https://latex.codecogs.com/svg.latex?\mathcal{S}) (or from ![](https://latex.codecogs.com/svg.latex?\mathcal{S}^{+}), and the rewards, ![](https://latex.codecogs.com/svg.latex?r), are taken from the set ![](https://latex.codecogs.com/svg.latex?\mathcal{R}). It is really a sum over all values of the three variables, ![](https://latex.codecogs.com/svg.latex?a), ![](https://latex.codecogs.com/svg.latex?s'), and ![](https://latex.codecogs.com/svg.latex?r). For each triplet, we compute its probability, ![](https://latex.codecogs.com/svg.latex?\pi(a|s)p(s',r|s,a)), weight the quantity in brackets by that probability, then sum over all possibilities to get an expected value.
+
+That equation is the **Bellman equation** for ![](https://latex.codecogs.com/svg.latex?v_\pi). It expresses a relationship between the value of a state and the values of its successor states. Think of looking ahead from one state to its possible successor states, as suggested by Figure a. Each open circle represents a state and each solid circle represents a state-action pair. Starting from state ![](https://latex.codecogs.com/svg.latex?s), the root node at the top, agent could take any of some set of actions. From each of these, the environment could respond with one of several next states, ![](https://latex.codecogs.com/svg.latex?s'), along with a reward, ![](https://latex.codecogs.com/svg.latex?r). The Bellman equation averages over all the possibilities, weighting each by its probability of occuring. It states that the value of the start state musl equal the (discounted) value of the expected next state, plus the reward expected along the way.
+![](images/Figure3.4.png)
+
+Figure: Backup diagrams for (a) ![](https://latex.codecogs.com/svg.latex?v_\pi) and (b) ![](https://latex.codecogs.com/svg.latex?q_\pi).
+
+
+## Dynamic Programming 
 
 ## Monte Carlo Methods
 
