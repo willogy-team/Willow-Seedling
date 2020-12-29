@@ -273,10 +273,25 @@ The Bellman optimality equation expresses the fact that the value of a state und
 
 ![](https://latex.codecogs.com/svg.latex?\begin{multline}v_*(s)=\max_{a\in\mathcal{A}(s)}q_{\pi_*}(s,a)\\\\=\max_{a}\mathbb{E}\\[R_{t+1}+{\gamma}v_*(S_{t+1})|S_t=s,A_t=a\\]\\\\=\max_{a\in\mathcal{A}(s)}\sum_{s',r}p(s',r|s,a)\\[r+{\gamma}v_*(s')\\]\end{multline})
 
-The Bellman optimality equation for ![](https://latex.codecogs.com/svg.latex?q_* is:
+The Bellman optimality equation for ![](https://latex.codecogs.com/svg.latex?q_*) is:
 
 ![](https://latex.codecogs.com/svg.latex?\begin{multline}q_*(s,a)=\mathbb{E}\\[R_{t+1}+{\gamma}\max_{a'}(S_{t+1},a')|S_t=s,A_t=a\\]\\\\=\sum_{s',r}p(s',r|s,a)\\[r+{\gamma}\max_{a'}q_*(s',a')\\]\end{multline})
-## Dynamic Programming 
+
+The backup diagrams in Figure below show graphically the spans of future states and actions considered in the Bellman optimality equations for ![](https://latex.codecogs.com/svg.latex?v_*) and ![](https://latex.codecogs.com/svg.latex?q_*). These are the same as the backup diagrams for ![](https://latex.codecogs.com/svg.latex?v_\pi) and ![](https://latex.codecogs.com/svg.latex?q_\pi) except that arcs have been added at the agent's choice points to represent that the maximum over that choice is taken rather than the expected value given some policy.
+
+![](images/Figure3.7.png)
+
+Figure: Backup diagrams for (a) ![](https://latex.codecogs.com/svg.latex?v_*) and (b) ![](https://latex.codecogs.com/svg.latex?q_*)
+
+Once one has ![](https://latex.codecogs.com/svg.latex?v_*), it is relatively easy to determine an optimal policy. For each state ![](https://latex.codecogs.com/svg.latex?s), there will be one or more actions at which the maximum is obtained in the Bellman optimality equation. Any policy that assigns nonzero probability only to these actions is an optimal policy. You can think of this as a one-step search. If you have the optimal value function, ![](https://latex.codecogs.com/svg.latex?v_*), then the actions that appear best after a one-step search will be optimal actions **greedily**. Although, the policies select actions based only on their short-term consequences, the beauty of ![](https://latex.codecogs.com/svg.latex?v_*) is actually optimal in longterm sense because ![](https://latex.codecogs.com/svg.latex?v_*) already takes into account the reward consequences of all possible future behavior. By means of ![](https://latex.codecogs.com/svg.latex?v_*), the optimal expected long-term return is turned into a quantity that is locally and immediately avaible for each state. Hence, a one-step-ahead search yields the long-term optimal actions. 
+
+Having ![](https://latex.codecogs.com/svg.latex?q_*) makes choosing optimal actions still easier. With ![](https://latex.codecogs.com/svg.latex?q_*), the agent does not even have to do a one-step-ahead search: for any state ![](https://latex.codecogs.com/svg.latex?s), it can simply find any action that maximizes ![](https://latex.codecogs.com/svg.latex?q_*(s,a)). The action-value function effectively caches the results of all one-step-ahead searches. It provides the optimal expected long-term return as a value that is locally and immediately available for each state-action pair. Hence, at the cost of representing a function of state-action pairs, instead of just of states, the optimal action-value function allows optimal actions to be selected without having to know anything about possible successor states and their values, that is, without having to know anything about the environment's dynamics.
+
+### Optimality and Approximation
+
+A critical aspect of the problem facing the agent is always the computational power available to it, in particular, the amount of computation it can perform in a single time step.
+
+The memory avaible is also an important constraint. A large amount of memory is often required to build up approximations of value functions, policies, and models. In tasks with small, finite state sets, it is possible to form these approximations using arrays or tables with one entry for each state (or state-action pair). This we call the **tabular** case, the corresponding methods we call tabular methods. 
 
 ## Monte Carlo Methods
 
