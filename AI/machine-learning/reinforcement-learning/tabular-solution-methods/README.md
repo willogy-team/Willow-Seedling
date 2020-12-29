@@ -177,12 +177,47 @@ The (expected) **return** is the sum of the rewards that received after time ste
 where ![](http://latex.codecogs.com/svg.latex?T) is a final time step.
 - From starting to when the agent-environment interaction breaks naturally into subsequences, it is **episodes**.
 - Each episode ends in a special state is **terminal state**.
-- Tasks with episodes of this kind are called **episodic tasks**.
+- Tasks with episodes of this kind are called **episodic tasks**. In episodic tasks sometimes need to distinguish the set of all nonterminal states as ![](http://latex.codecogs.com/svg.latex?\mathcal{S}), from the set of all states plus the terminal state as ![](http://latex.codecogs.com/svg.latex?\mathcal{S}^{+})
 
-In many cases the agent-enviromnment interaction does not break naturally into identifiable episodes, it goes on continually without limit. Thus _T_ = &infin;. 
-![](https://latex.codecogs.com/svg.latex?G_t=R_{t+1}+{\gamma}R_{t+2}+{\gamma^2}R_{t+3}+...=\sum_{k=0}^\infty\gamma^{k}R_{t+k-1}),
+In many cases the agent-enviromnment interaction does not break naturally into identifiable episodes, it goes on continually without limit. We call these **continuing tasks**.The final time step would be _T_ = &infin;, and the return, which is problematicly what we are trying to maximize, could itself easily be infinite. 
 
+The agent tries to select actions so that the sum of the discounted rewards it receives over the future is maximized. In particular, it chooses _A<sub>t</sub>_ to maximize the expected **discounting return**:
 
+![](https://latex.codecogs.com/svg.latex?G_t=R_{t+1}+{\gamma}R_{t+2}+{\gamma^2}R_{t+3}+...=\sum_{k=0}^{\infty}{\gamma}^{k}R_{t+k-1})
+
+where &gamma; is a parameter, 0 &le; &gamma; &le; 1, called the **discount rate**.
+
+The discount rate determines the present value of future rewards.
+- If &gamma; < 1, the infinite sum has a finite value as long as the reward sequence {_R_<sub>k</sub>} is bounded.
+- If &gamma; = 0, the agent is myopic in being concerned only with maximizing immediate rewards.
+- If &gamma approachs 1, the objective takes future rewards into account more strongly, the agent becomes more farsighted.
+
+### The Markov Property
+
+The markov property is a property of environments and their state signals that is of particular interest. We treat the state as information is available to the agent. It is importantly given by some preprocessing system, but we focus fully on the decision-making issues rather than onstructing, changing, or learning the state signal. 
+
+The state signal should be not be expected to inform the agent of everything about environment, or even everything that would be useful to it in making decisions.
+Ideadlly, is a state signal that summarizes past sensations compactly, yet in such a way that all relevant information is retained. A state signal that succeeds in retaining all relevant information is said to be **Markov**.
+
+Formally define the Markov property for the RL problem with a assumely finite number of states and reward values. Consider how a general environment might respond at time _t_ + 1 to the action taken at time _t_. In the most general, causal case this response may depend on everything that has happended earlier. In this case the dynamics can be defined only by specifying the complete probability distribution:
+
+![](https://latex.codecogs.com/svg.latex?Pr\\{R_{t+1}=r,S_{t+1}=s'|S_0,A_0,R_1,...,S_{t-1},A_{t-1},R_t,S_t,A_t\\})
+
+for all _r_, _s'_, and all possible values of the past events: _S<sub>0</sub>, A<sub>0</sub>, R<sub>1</sub>, ..., S<sub>t-1</sub>, A<sub>t-1</sub>, R<sub>t</sub>, S<sub>t</sub>, A<sub>t</sub>_. If the state signal has the **Markov property**, on the other hand, then the environment's respone at _t_ + 1 depends only on the state and action represetations at _t_, in which case the environment's dynamics can be defined by specifying only
+
+![](https://latex.codecogs.com/svg.latex?p(s',r|s,a)=Pr\\{R_{t+1}=r,S_{t+1}=s'|S_t,A_t\\})
+
+for all _r_, _s'_, _S_<sub>t</sub>, _A_<sub>t</sub>.
+
+If an environment has the Markov property, then its one-step dynamics enable us to predict the next state and expected next reward given the current state and action. Even when the state signal is non-Markov it is still appropriate to think of the state in RL as an approximation to a Markov state.
+
+### Markov Decision Processes
+
+A RL task that satisfies the Markov property is called a **Markov decision process**, or MDP. If the state and action spaces are finite then it is called a **finite MDP** that are particularly important to the theory of RL.
+
+A particular finite MDP is defined by its state and action sets and by the one-step dynamics of the environment. Given any state _s_ and action _a_, the probability of each possible pair of the next state and reward, _s'_, _r_, is denoted
+
+![](https://latex.codecogs.com/svg.latex?p(s',r|s,a)=Pr\\{S_{t+1}=s',R_{t+1}=r|S_t=s,A_t=a\\})
 ## Dynamic Programming
 
 ## Monte Carlo Methods
