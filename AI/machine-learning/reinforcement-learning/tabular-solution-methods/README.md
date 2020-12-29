@@ -218,6 +218,14 @@ A RL task that satisfies the Markov property is called a **Markov decision proce
 A particular finite MDP is defined by its state and action sets and by the one-step dynamics of the environment. Given any state _s_ and action _a_, the probability of each possible pair of the next state and reward, _s'_, _r_, is denoted
 
 ![](https://latex.codecogs.com/svg.latex?p(s',r|s,a)=Pr\\{S_{t+1}=s',R_{t+1}=r|S_t=s,A_t=a\\})
+
+Given the dynamics as specified by above, one can compute anything else one might want to know about the environment, such as:
+
+| value | formula|
+|:--|:--|
+| the expected rewards for state-action pairs | ![](https://latex.codecogs.com/svg.latex?r(s,a)=\mathbb{E}\\[R_{t+1}\\|S_t=s,A_t=a\\]=\sum_{r\in\mathcal{R}}r\sum_{s'\in\mathcal{S}}p(s',r\\|s,a))|
+| the state-transition probabilities | ![](https://latex.codecogs.com/svg.latex?p(s'\\|s,a)=Pr\\{S_{t+1}=s'\\|S_t=s,A_t=a\\}=\sum_{r\in\mathcal{R}}p(s',r\\|s,a))|
+| the expected rewards for state-action-next_state triples | ![](https://latex.codecogs.com/svg.latex?r(s,a,s')=\mathbb{E}\\[R_{t+1}\\|S_t=s,A_t=a,S_{t+1}=s'\\]=\frac{\sum_{r\in\mathcal{R}}r{\space}p(s',r\\|s,a)}{p(s'\\|s,a)})|
 ## Dynamic Programming
 
 ## Monte Carlo Methods
