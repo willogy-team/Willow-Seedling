@@ -29,7 +29,7 @@ Reinforcement learning (RL) is an area of machine learning concerned with how so
 
 ### Notation
 
-Directing to [Notation](notation/notation.md)
+Directing to [Notation](notation)
 
 ## Motivation
 
