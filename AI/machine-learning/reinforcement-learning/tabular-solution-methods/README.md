@@ -255,7 +255,27 @@ That equation is the **Bellman equation** for ![](https://latex.codecogs.com/svg
 
 Figure: Backup diagrams for (a) ![](https://latex.codecogs.com/svg.latex?v_\pi) and (b) ![](https://latex.codecogs.com/svg.latex?q_\pi).
 
+### Optimal Value Fuctions
 
+Solving a RL task means, roughly, finding a policy that achieves a lot of reward over the long run. For finite MDPs, we can precisely define an optimal policy in the following way. Value functions define a partial ordering over policies. A policy ![](https://latex.codecogs.com/svg.latex?\pi) is defined to be better than or equal to a policy ![](https://latex.codecogs.com/svg.latex?\pi') if its expected return is greater than or equal to that of ![](https://latex.codecogs.com/svg.latex?\pi') for all states. In other words, ![](https://latex.codecogs.com/svg.latex?\pi\geq\pi') if and only if ![](https://latex.codecogs.com/svg.latex?v_\pi(s){\geq}v_{\pi'}(s)) for all ![](https://latex.codecogs.com/svg.latex?s\in\mathcal{S}). There is always at least one policy that is better than or equal to all other policies. This is an **optimal policy**.
+
+Although there may be more than one, we denote all the optimal policies by ![](https://latex.codecogs.com/svg.latex?\pi_{*}). They share the same functions as below:
+| The optimal function | Denotation and Definition | For all values |
+|:--|:--|:--|
+| The **optimal state-value function** | ![](https://latex.codecogs.com/svg.latex?v_{*}(s)=\max_{\pi}v_{\pi}(s))| ![](https://latex.codecogs.com/svg.latex?s\in\mathcal{S})|
+| The **optimal action-value function** | ![](https://latex.codecogs.com/svg.latex?q_{*}(s,a)=\max_{\pi}q_{\pi}(s,a))| ![](https://latex.codecogs.com/svg.latex?s\in\mathcal{S}{\land}a\in\mathcal{A}(s))|
+
+For the state-action pair ![](https://latex.codecogs.com/svg.latex?(s,a)), the optimal action-value function gives the expected return for taking action ![](https://latex.codecogs.com/svg.latex?a) in state ![](https://latex.codecogs.com/svg.latex?s) and thereafter following an optimal policy. Thus, we can write ![](https://latex.codecogs.com/svg.latex?q_*) in terms of ![](https://latex.codecogs.com/svg.latex?v_*) as follows:
+
+![](https://latex.codecogs.com/svg.latex?q_*(s,a)=\mathbb{E}\\[R_{t+1}+{\gamma}v_*(S_{t+1})|S_t=s,A_t=a\\])
+
+The Bellman optimality equation expresses the fact that the value of a state under an optimal policy must equal the expected return for the best action from that state:
+
+![](https://latex.codecogs.com/svg.latex?\begin{multline}v_*(s)=\max_{a\in\mathcal{A}(s)}q_{\pi_*}(s,a)\\\\=\max_{a}\mathbb{E}\\[R_{t+1}+{\gamma}v_*(S_{t+1})|S_t=s,A_t=a\\]\\\\=\max_{a\in\mathcal{A}(s)}\sum_{s',r}p(s',r|s,a)\\[r+{\gamma}v_*(s')\\]\end{multline})
+
+The Bellman optimality equation for ![](https://latex.codecogs.com/svg.latex?q_* is:
+
+![](https://latex.codecogs.com/svg.latex?\begin{multline}q_*(s,a)=\mathbb{E}\\[R_{t+1}+{\gamma}\max_{a'}(S_{t+1},a')|S_t=s,A_t=a\\]\\\\=\sum_{s',r}p(s',r|s,a)\\[r+{\gamma}\max_{a'}q_*(s',a')\\]\end{multline})
 ## Dynamic Programming 
 
 ## Monte Carlo Methods
