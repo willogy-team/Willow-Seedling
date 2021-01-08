@@ -41,7 +41,11 @@ import jodie
 ```
 
 ### II.4. Exception
-Exceptions are allowed but must be used carefully.
+Exceptions are allowed but must be used carefully. Exceptions are not coding mistakes leading to errors. Need to distinguish between errors and exceptions.
+
+To establish the difference between them, we need to specify two types of errors:
+- Syntax errors: they are caused by not following the proper structure of the language, also known as parsing error.
+- Logical errors (Exceptions): exceptions are errors that occur at runtime. Mostly, they are logical errors. E.g. divide a number by zero, open a file/import a module that does not exist, access out of range index of a list, arithmetic error, overflow error, type error,... 
 
 Must follow certain conditions:
 - Make use exceptions when it makes sense.
@@ -50,14 +54,165 @@ Must follow certain conditions:
 - Use the ```finally``` clause to excute code whether or not an exception is raised in the `try` block.
 
 ### II.5. Global variables
-Avoid global variables.
+Avoid global variables. This is not only for Python, they are bad in any programming language.
 
-Can use module-level constants: `MAX_VOLUME = 100`.<br/>
-If needed, shoule use with prefix `_` to the name.
+However, global constants are not as global variables. They are completely harmless.
+
+Global variables are bad because they enable functions to have hidden side effects (non-obvious, hard to detect/diagnose), which lead to an increase in complexity.
+
+Imagine you have a couple of objects that both use the same global variable. If a method in one of the objects changes the value of the shared global state, then you no longer know what the starting state is when you execute a method in the other object.
+
+Global state hurts the readability of your code. If there is an external dependency that isn't explicitly introduced then whoever maintains the code will have to try to find where it came from.
+
+Can use module-level **constants** (should be capitalized): `MAX_VOLUME = 100`.<br/>
+If needed, should use with prefix `_` to the name.
 
 ### II.6. Nested/Local/Inner Classes and Functions
 Nested local functions or classes are fine when used to close over a local variable. Inner classes are fine.
 `updating`
+
+**Inner or Nested Class** is defined inside another class (see the structure in image below).
+```python
+## outer class
+class Outer:
+
+    ## inner class
+    class Inner:
+        pass
+
+        ## multilevel inner class
+        class InnerInner:
+            pass
+
+    ## another inner class
+    class _Inner:
+        pass
+
+    ## ...
+
+    pass
+```
+
+Why use them?
+- Grouping of two or more classes to save code. For example, class __Engine__ is made to be an inner class of class __Car__. Every Car needs an Engine. And Engine won't be used without a Car.
+- Hiding code of the *Nested* classes from the outside world.
+- Classes that are closely related are all together. We don't have to search.
+
+=> The code is straightforward to organize when you use the inner or nested classes.
+
+Coding:
+You can access the **inner class** in the **outer class** using the **self** keyword. So, you can quickly create an instance of the **inner class** and perform operations in the **outer class** as you see fit. However, accessing the outer class in an inner class is not possible. Let's see an example below.
+```python
+class Outer:
+    """Outer Class"""
+
+    def __init__(self):
+        ## instantiating the 'Inner' class
+        self.inner = self.Inner()
+
+    def reveal(self):
+        ## calling the 'Inner' class function display
+        self.inner.inner_display("Calling Inner class function from Outer class")
+
+    class Inner:
+        """Inner Class"""
+
+        def inner_display(self, msg):
+            print(msg)
+```
+Calling Inner class function from Outer class function:
+```python
+## creating an instance of the 'Outer' class
+outer = Outer()
+## calling the 'reveal()' method
+outer.reveal()
+```
+Calling the Inner class method directly. This way is a little less efficient.
+```python
+Outer().Inner().inner_display("Calling the Inner class method directly")
+```
+If you want to create an instance of the **inner** class outside the **outer** class.
+```python
+outer = Outer()
+
+## instantiating the inner class
+inner = outer.Inner() ## inner = Outer().Inner() or inner = outer.inner
+inner.inner_display("Just Print It!")
+```
+
+Multiple Inner Classes:
+```python
+class Outer:
+    """Outer Class"""
+
+    def __init__(self):
+        ## Instantiating the 'Inner' class
+        self.inner = self.Inner()
+        ## Instantiating the '_Inner' class
+        self._inner = self._Inner()
+
+    def show_classes(self):
+        print("This is Outer class")
+        print(inner)
+        print(_inner)
+
+    class Inner:
+        """First Inner Class"""
+
+        def inner_display(self, msg):
+            print("This is Inner class")
+            print(msg)
+
+    class _Inner:
+        """Second Inner Class"""
+
+        def inner_display(self, msg):
+            print("This is _Inner class")
+            print(msg)
+
+    ## ...
+```
+
+Multilevel Inner Classes:
+```python
+class Outer:
+    """Outer Class"""
+
+    def __init__(self):
+        ## instantiating the 'Inner' class
+        self.inner = self.Inner()
+        ## instantiating the multilevel 'InnerInner' class
+        self.innerinner = self.inner.InnerInner()
+
+    def show_classes(self):
+        print("This is Outer class")
+        print(inner)
+
+    ## inner class
+    class Inner:
+        """First Inner Class"""
+
+        def __init__(self):
+            ## instantiating the 'InnerInner' class
+            self.innerinner = self.InnerInner()
+
+        def show_classes(self):
+            print("This is Inner class")
+            print(self.innerinner)
+
+        ## multilevel inner class
+        class InnerInner:
+
+            def inner_display(self, msg):
+                print("This is multilevel InnerInner class")
+                print(msg)
+
+        def inner_display(self, msg):
+            print("This is Inner class")
+            print(msg)
+
+    ## ...
+```
 
 ### II.7. Comprehensions & Generator Expressions
 Each portion must fit on one line: mapping expression, `for` clause, filter expression. Use loops instead when things get more complicated.<br/>
@@ -105,6 +260,40 @@ No:
 ### II.9. Generators
 Use generators as needed.<br/>
 Fine. Use “Yields:” rather than “Returns:” in the docstring for generator functions.
+
+Before understanding *generators*, you must understand *iterables*.
+
+**Iterables**: When you create a list, you can read its items one by one. The created list is an *iterables*. These iterables are handy because you can read them as many times as you wish, but the constrast is you have to store all the values in memory. This is not what we want when there are too many values.
+
+**Generators**: Generator is a kind of iterable *you can only iterate over once*. They do not store all the values in memory, they generate values *on the fly*:
+```python
+>>> mygenerator = (x*x for x in range(3))
+>>> for i in mygenerator:
+...    print(i)
+0
+1
+4
+```
+It is just the same except you used ```()``` instead of ```[]```. BUT, you cannot perform ```for i in mygenerator``` a second time since generators can only be used once: they calculate 0, then forget about it and calculate 1, and end calculating 4, one by one.
+
+**Yield**:
+```yield``` is a keyword that is used like ```return```, except the function will return a generator.
+```python
+>>> def createGenerator():
+...    mylist = range(3)
+...    for i in mylist:
+...        yield i*i
+...
+>>> mygenerator = createGenerator() # create a generator
+>>> print(mygenerator) # mygenerator is an object!
+<generator object createGenerator at 0xb7555c34>
+>>> for i in mygenerator:
+...     print(i)
+0
+1
+4
+```
+To master yield, you must understand that **when you call the function, the code you have written in the function body does not run**.
 
 ### II.10. Lambda Functions
 Okay to use them for one-liners. If the code inside the lambda function is longer than 60-80 chars, it’s probably better to define it as a regular nested function.<br/>
@@ -899,3 +1088,8 @@ Conclusionly, these guideline is to have a common vocabulary of coding, which pr
 # References
 - [ ] Coding convention for Python. [link](https://google.github.io/styleguide/pyguide.html)
 - [ ] PEP 8 Style Guide for Python Code. [link](https://www.python.org/dev/peps/pep-0008/#imports)
+- [ ] How to catch all exceptions in Python. [link](https://stackify.com/how-to-catch-all-exceptions-in-python/)
+- [ ] Why are global variables evil? [link](https://stackoverflow.com/questions/19158339/why-are-global-variables-evil) 
+- [ ] Why is Global State so Evil? [link](https://softwareengineering.stackexchange.com/questions/148108/why-is-global-state-so-evil)
+- [ ] Inner Classes in Python [link](https://www.datacamp.com/community/tutorials/inner-classes-python)
+- [ ] What does the yield keyword do? [link](https://stackoverflow.com/questions/231767/what-does-the-yield-keyword-do)
