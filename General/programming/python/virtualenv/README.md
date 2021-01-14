@@ -40,7 +40,7 @@ Different applications can then use different virtual environments. To resolve t
 
 Install `virtualenv`:
 ```bash
-$ python -m pip install --user virtualenv
+$ python3 -m pip install --user virtualenv
 ```
 
 ### Create a virtual environment
@@ -49,7 +49,7 @@ When you switch projects, you can simply create a new virtual environment and no
 
 To create a virtual environment, go to your project’s directory and run command line.
 ```bash
-$ python -m virtualenv <virtual_environment_name>
+$ python3 -m virtualenv <virtual_environment_name>
 ```
 
 ### Activate a virtual environment
@@ -97,11 +97,11 @@ virtualenv-mgr (1.0.4)                 - Tool to manage your virtualenvs
 
 You can install the latest version of a package by specifying a package’s name:
 ```bash
-(env) $  python -m pip install <package_name>
+(env) $  python3 -m pip install <package_name>
 
 ```
 ```bash
-(env) $  python -m pip install numpy
+(env) $  python3 -m pip install numpy
 Collecting numpy
   Downloading numpy-1.19.4-cp37-cp37m-manylinux2010_x86_64.whl (14.5 MB)
      |████████████████████████████████| 14.5 MB 2.8 MB/s
@@ -111,11 +111,11 @@ Successfully installed numpy-1.19.4
 
 You can also install a specific version of a package by giving the package name followed by `==` and the version number:
 ```bash
-(env) $  python -m pip install <package_name>==<version>
+(env) $  python3 -m pip install <package_name>==<version>
 
 ```
 ```bash
-(env) $ python -m pip install numpy==1.17.2
+(env) $ python3 -m pip install numpy==1.17.2
 Collecting numpy==1.17.2
   Downloading numpy-1.17.2-cp37-cp37m-manylinux1_x86_64.whl (20.3 MB)
      |████████████████████████████████| 20.3 MB 3.2 MB/s
@@ -129,10 +129,10 @@ Successfully installed numpy-1.17.2
 
 If you re-run this command, `pip` will notice that the requested version is already installed and do nothing. You can supply a different version number to get that version, or you can `run pip install --upgrade` to upgrade the package to the latest version:
 ```bash
-(env) $ python -m pip install --upgrade <package_name>
+(env) $ python3 -m pip install --upgrade <package_name>
 ```
 ```bash
-(env) $ python -m pip install --upgrade numpy
+(env) $ python3 -m pip install --upgrade numpy
 Collecting numpy
   Using cached numpy-1.19.4-cp37-cp37m-manylinux2010_x86_64.whl (14.5 MB)
 Installing collected packages: numpy
@@ -227,7 +227,7 @@ six==1.15.0
 ```
 The `requirements.txt` can then be committed to version control and shipped as part of an application. Users can then install all the necessary packages with `install -r`:
 ```bash
-(env) $ python -m pip install -r requirements.txt
+(env) $ python3 -m pip install -r requirements.txt
 ```
 
 # References
